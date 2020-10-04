@@ -29,7 +29,6 @@ const MyApp = () => (
                             <Main organisation={data.me.organisationUnits}/>
                             </>
                         ))}
-                        
                     </>
                 )
             }}

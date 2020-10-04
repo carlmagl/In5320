@@ -1,4 +1,4 @@
 {
     "Hello {{name}}": "",
-    "Welcome to DHIS2!": ""
+    "Organisation =  {{organisation}}": ""
 }
