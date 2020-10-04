@@ -2,7 +2,7 @@ import React from 'react';
 import { DataQuery } from '@dhis2/app-runtime';
 import i18n from '@dhis2/d2-i18n';
 import classes from './App.module.css';
-import Main from './Main.js';
+import Main from './Organization.js';
 
 const query = {
     me: {
@@ -17,13 +17,19 @@ const MyApp = () => (
                 console.log(data);
                 if (error) return <span>ERROR</span>
                 if (loading) return <span>...</span>
+                console.log(data.me.organisationUnits[0].id)
                 return (
                     <>
                         <h1>
                             {i18n.t('Hello {{name}}', { name: data.me.name })}
                         </h1>
-                        <h3>{i18n.t('Welcome to DHIS2!')}</h3>
-                        <Main organizations={data.me.organizationsUnits}/>
+                        {data.me.organisationUnits.map(organisation => (
+                            <>
+                            <h3 key={organisation.id}>{i18n.t('Organisation =  {{organisation}}', { organisation: organisation.id})}</h3>
+                            <Main organisation={data.me.organisationUnits}/>
+                            </>
+                        ))}
+                        
                     </>
                 )
             }}

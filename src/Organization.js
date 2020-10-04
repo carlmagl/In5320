@@ -13,14 +13,14 @@ const query = {
 }
   
 
-const Main = () => (
-    
+const Organization = (organizations) => ( 
     <div className={classes.container}>
         <DataQuery query={query}>
             {({ error, loading, data }) => {
                 if (error) return <span>ERROR</span>
                 if (loading) return <span>...</span>
                 console.log(data);
+                console.log(organizations)
                 return (
                     <>
                        <h1>Test</h1>
@@ -31,5 +31,5 @@ const Main = () => (
     </div>
 )
 
-export default Main;
+export default Organization;
 
