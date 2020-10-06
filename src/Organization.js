@@ -7,7 +7,7 @@ const query = {
     trackedEntityInstances: {
       resource: "trackedEntityInstances",
       params: {
-        ou: 'ImspTQPwCqd',
+        ou: 'JwnjhjVgXP2',
       }
     }
 }
