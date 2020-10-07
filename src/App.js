@@ -2,7 +2,7 @@ import React from 'react';
 import { DataQuery } from '@dhis2/app-runtime';
 import i18n from '@dhis2/d2-i18n';
 import classes from './App.module.css';
-import Main from './Organization.js';
+import Organisation from './Organisation.js';
 
 const query = {
     me: {
@@ -26,7 +26,7 @@ const MyApp = () => (
                         {data.me.organisationUnits.map(organisation => (
                             <>
                             <h3 key={organisation.id}>{i18n.t('Organisation =  {{organisation}}', { organisation: organisation.id})}</h3>
-                            <Main organisation={data.me.organisationUnits}/>
+                            <Organisation organisation={data.me.organisationUnits}/>
                             </>
                         ))}
                     </>
