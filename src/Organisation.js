@@ -10,7 +10,6 @@ import {
   TableBody,
   TableCell,
   MenuSectionHeader,
-  TableRowHead,
 } from "@dhis2/ui";
 
 const query = {
@@ -28,6 +27,7 @@ const Organization = () => (
       {({ error, loading, data }) => {
         if (error) return <span>ERROR</span>;
         if (loading) return <span>...</span>;
+        console.log(data.trackedEntityInstances.trackedEntityInstances);
         return (
           <>
             <div className={styles.container}>
@@ -43,27 +43,32 @@ const Organization = () => (
                 />
                 <Table>
                   <TableRow>
-                    <TableCellHead>Key</TableCellHead>
-                    <TableCellHead>Value</TableCellHead>
+                    <TableCellHead>Due Date</TableCellHead>
+                    <TableCellHead>Type</TableCellHead>
+                    <TableCellHead>First name</TableCellHead>
+                    <TableCellHead>Last name</TableCellHead>
+                    <TableCellHead>Phone</TableCellHead>
                   </TableRow>
                   <TableBody>
                     {data &&
                       data.trackedEntityInstances.trackedEntityInstances.map(
                         (temp) => (
                           <TableRow key={temp.trackedEntityInstance}>
+                            <TableCell>12-12-2012</TableCell>
+                            <TableCell>INDEX</TableCell>
                             <TableCell>
-                              {" "}
-                              Name:{" "}
-                              {
-                                temp.attributes.find(
-                                  (element) =>
-                                    element.attribute === "ENRjVGxVL6l"
-                                ).value
-                              }{" "}
                               {
                                 temp.attributes.find(
                                   (element) =>
                                     element.attribute === "sB1IHYu2xQT"
+                                ).value
+                              }
+                            </TableCell>
+                            <TableCell>
+                              {
+                                temp.attributes.find(
+                                  (element) =>
+                                    element.attribute === "ENRjVGxVL6l"
                                 ).value
                               }
                             </TableCell>
