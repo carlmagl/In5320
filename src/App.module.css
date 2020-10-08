@@ -4,7 +4,7 @@
   font-size: 1rem;
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: minmax(200px, auto) 1fr;
+  grid-template-columns: minmax(200px, auto);
   grid-template-areas: "sidebar main";
 }
 
