@@ -17,6 +17,8 @@ const query = {
     resource: "trackedEntityInstances",
     params: {
       ou: "JwnjhjVgXP2",
+      program: "DM9n1bUw8W8",
+      trackedEntityInstance: "ZGHA79u1Jl5",
     },
   },
 };
