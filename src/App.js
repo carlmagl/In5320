@@ -14,7 +14,17 @@ const query = {
 };
 
 const MyApp = () => {
-  const [active, setActive] = useState(false);
+  const [both, setBoth] = useState(false);
+  const [index, setIndex] = useState(false);
+  const [contacts, setContacts] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  function resetRadiButtons() {
+    setBoth(false);
+    setIndex(false);
+    setContacts(false);
+    setCompleted(false);
+  }
+
   return (
     <div className={styles.container}>
       <DataQuery query={query}>
@@ -30,40 +40,44 @@ const MyApp = () => {
                 <Radio
                   dataTest="dhis2-uicore-radio"
                   label="Both"
-                  name="Ex"
+                  name="Both"
+                  checked={both}
                   onChange={() => {
-                    setActive(true);
-                    console.log();
+                    resetRadiButtons();
+                    setBoth(true);
                   }}
                   value="default"
-                />{" "}
+                />
                 <Radio
                   dataTest="dhis2-uicore-radio"
                   label="Index"
-                  name="Ex"
+                  name="Index"
+                  checked={index}
                   onChange={() => {
-                    setActive(true);
-                    console.log();
+                    resetRadiButtons();
+                    setIndex(true);
                   }}
                   value="default"
-                />{" "}
+                />
                 <Radio
                   dataTest="dhis2-uicore-radio"
                   label="Contacts"
-                  name="Ex"
+                  name="Contacts"
+                  checked={contacts}
                   onChange={() => {
-                    setActive(true);
-                    console.log();
+                    resetRadiButtons();
+                    setContacts(true);
                   }}
                   value="default"
-                />{" "}
+                />
                 <Radio
                   dataTest="dhis2-uicore-radio"
                   label="Completed"
-                  name="Ex"
+                  name="Completed"
+                  checked={completed}
                   onChange={() => {
-                    setActive(true);
-                    console.log();
+                    resetRadiButtons();
+                    setCompleted(true);
                   }}
                   value="default"
                 />
