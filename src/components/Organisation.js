@@ -45,21 +45,16 @@ const Organization = (query) => {
                     data.trackedEntityInstances.trackedEntityInstances.map(
                       (temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
-<<<<<<< HEAD
                           <TableCell>
                             {temp.enrollments[0].events[0].dueDate
                               ? temp.enrollments[0].events[0].dueDate
                               : "NaN"}
                           </TableCell>
-                          <TableCell>INDEX</TableCell>
-=======
-                          <TableCell>12-12-2012</TableCell>
                           <TableCell>
                             {temp.programOwners[0].program === "uYjxkTbwRNf"
                               ? "INDEX"
                               : "CONTACTS"}
                           </TableCell>
->>>>>>> 10337781b90be54871980019881b92145e971692
                           <TableCell>
                             {
                               temp.attributes.find(
