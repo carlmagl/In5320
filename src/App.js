@@ -13,17 +13,6 @@ const query = {
   },
 };
 
-const programQuery = {
-  trackedEntityInstances: {
-    resource: "trackedEntityInstances",
-    params: {
-      ou: "JwnjhjVgXP2",
-      program: "DM9n1bUw8W8",
-      fields: "*",
-    },
-  },
-};
-
 const bothQuery = {
   trackedEntityInstances: {
     resource: "trackedEntityInstances",
@@ -42,8 +31,6 @@ const activeQuery = {
       program: "uYjxkTbwRNf",
       programStatus: "ACTIVE",
       fields: "*",
-<<<<<<< HEAD
-=======
     },
   },
 };
@@ -53,10 +40,9 @@ const contactsQuery = {
     resource: "trackedEntityInstances",
     params: {
       ou: "JwnjhjVgXP2",
-      program: "uYjxkTbwRNf",
+      program: "DM9n1bUw8W8",
       programStatus: "ACTIVE",
       fields: "*",
->>>>>>> 10337781b90be54871980019881b92145e971692
     },
   },
 };
@@ -146,11 +132,7 @@ const MyApp = () => {
               <>
                 {both && <Organisation query={bothQuery} />}
                 {index && <Organisation query={activeQuery} />}
-<<<<<<< HEAD
-                {contacts && <Organisation query={programQuery} />}
-=======
                 {contacts && <Organisation query={contactsQuery} />}
->>>>>>> 10337781b90be54871980019881b92145e971692
                 {completed && <Organisation query={completedQuery} />}
               </>
             </>
