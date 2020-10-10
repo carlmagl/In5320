@@ -13,21 +13,9 @@ import {
   Button,
 } from "@dhis2/ui";
 
-const query = {
-  trackedEntityInstances: {
-    resource: "trackedEntityInstances",
-    params: {
-      ou: "JwnjhjVgXP2",
-      program: "uYjxkTbwRNf",
-      programStatus: "ACTIVE",
-    },
-  },
-};
-
-const Organization = () => {
-  const [active, setActive] = useState("ACTIVE");
+const Organization = (query) => {
   return (
-    <DataQuery query={query}>
+    <DataQuery query={query.query}>
       {({ error, loading, data }) => {
         if (error) return <span>ERROR</span>;
         if (loading) return <span>...</span>;
@@ -42,7 +30,9 @@ const Organization = () => {
                   <TableCellHead>First name</TableCellHead>
                   <TableCellHead>Last name</TableCellHead>
                   <TableCellHead>Phone</TableCellHead>
-                  <TableCellHead></TableCellHead>
+                  <TableCellHead>
+                    {data.trackedEntityInstances.trackedEntityInstances.length}
+                  </TableCellHead>
                   <TableCellHead></TableCellHead>
                 </TableRow>
                 <TableBody>
