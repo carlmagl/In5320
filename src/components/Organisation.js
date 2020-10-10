@@ -20,6 +20,11 @@ const Organization = (query) => {
         if (error) return <span>ERROR</span>;
         if (loading) return <span>...</span>;
         console.log(data.trackedEntityInstances.trackedEntityInstances);
+        console.log(
+          data.trackedEntityInstances.trackedEntityInstances.enrollments
+            ? data.trackedEntityInstances.trackedEntityInstances.enrollments
+            : "nan"
+        );
         return (
           <>
             <nav className={styles.containers} data-test-id="menu">
@@ -40,7 +45,11 @@ const Organization = (query) => {
                     data.trackedEntityInstances.trackedEntityInstances.map(
                       (temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
-                          <TableCell>12-12-2012</TableCell>
+                          <TableCell>
+                            {temp.enrollments[0].events[0].dueDate
+                              ? temp.enrollments[0].events[0].dueDate
+                              : "NaN"}
+                          </TableCell>
                           <TableCell>INDEX</TableCell>
                           <TableCell>
                             {
