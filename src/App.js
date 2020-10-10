@@ -13,12 +13,43 @@ const query = {
   },
 };
 
+const bothQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances",
+    params: {
+      ou: "JwnjhjVgXP2",
+    },
+  },
+};
+
+const activeQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances",
+    params: {
+      ou: "JwnjhjVgXP2",
+      program: "uYjxkTbwRNf",
+      programStatus: "ACTIVE",
+    },
+  },
+};
+
+const completedQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances",
+    params: {
+      ou: "JwnjhjVgXP2",
+      program: "uYjxkTbwRNf",
+      programStatus: "COMPLETED",
+    },
+  },
+};
+
 const MyApp = () => {
   const [both, setBoth] = useState(false);
-  const [index, setIndex] = useState(false);
+  const [index, setIndex] = useState(true);
   const [contacts, setContacts] = useState(false);
   const [completed, setCompleted] = useState(false);
-  function resetRadiButtons() {
+  function resetRadioButtons() {
     setBoth(false);
     setIndex(false);
     setContacts(false);
@@ -43,7 +74,7 @@ const MyApp = () => {
                   name="Both"
                   checked={both}
                   onChange={() => {
-                    resetRadiButtons();
+                    resetRadioButtons();
                     setBoth(true);
                   }}
                   value="default"
@@ -54,7 +85,7 @@ const MyApp = () => {
                   name="Index"
                   checked={index}
                   onChange={() => {
-                    resetRadiButtons();
+                    resetRadioButtons();
                     setIndex(true);
                   }}
                   value="default"
@@ -65,7 +96,7 @@ const MyApp = () => {
                   name="Contacts"
                   checked={contacts}
                   onChange={() => {
-                    resetRadiButtons();
+                    resetRadioButtons();
                     setContacts(true);
                   }}
                   value="default"
@@ -76,18 +107,18 @@ const MyApp = () => {
                   name="Completed"
                   checked={completed}
                   onChange={() => {
-                    resetRadiButtons();
+                    resetRadioButtons();
                     setCompleted(true);
                   }}
                   value="default"
                 />
                 <CalendarComp />
               </div>
-              {data.me.organisationUnits.map((organisation) => (
-                <>
-                  <Organisation organisation={data.me.organisationUnits} />
-                </>
-              ))}
+              <>
+                {both && <Organisation query={bothQuery} />}
+                {index && <Organisation query={activeQuery} />}
+                {completed && <Organisation query={completedQuery} />}
+              </>
             </>
           );
         }}
