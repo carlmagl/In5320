@@ -16,14 +16,7 @@ const UserInfo = () => (
         console.log(data);
         if (error) return <span>ERROR</span>;
         if (loading) return <span>...</span>;
-        return (
-          <CenteredContent
-            dataTest="dhis2-uicore-centeredcontent"
-            position="top"
-          >
-            <h1>{i18n.t("Hello, {{name}}", { name: data.me.name })}</h1>
-          </CenteredContent>
-        );
+        return <h1>{i18n.t("Hello, {{name}}", { name: data.me.name })}</h1>;
       }}
     </DataQuery>
   </>
