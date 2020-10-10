@@ -41,7 +41,11 @@ const Organization = (query) => {
                       (temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
                           <TableCell>12-12-2012</TableCell>
-                          <TableCell>INDEX</TableCell>
+                          <TableCell>
+                            {temp.programOwners[0].program === "uYjxkTbwRNf"
+                              ? "INDEX"
+                              : "CONTACTS"}
+                          </TableCell>
                           <TableCell>
                             {
                               temp.attributes.find(
