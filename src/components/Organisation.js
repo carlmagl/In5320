@@ -15,6 +15,10 @@ import {
   Button,
 } from "@dhis2/ui";
 
+function checkIfDateHasExpired(dueDate) {
+  return moment().diff(dueDate, "days") > 0;
+}
+
 const Organization = (query) => {
   const Moment = require("moment");
   return (
@@ -58,13 +62,22 @@ const Organization = (query) => {
                           )
                       )
                       .map((temp) => (
-                        <TableRow key={temp.trackedEntityInstance}>
+                        <TableRow
+                          key={temp.trackedEntityInstance}
+                          className={
+                            checkIfDateHasExpired(
+                              temp.enrollments[0].events[0].dueDate
+                            )
+                              ? styles.red
+                              : ""
+                          }
+                        >
                           {console.log(
                             moment(
                               temp.enrollments[0].events[0].dueDate
                             ).fromNow()
                           )}
-                          <TableCell className={styles.red}>
+                          <TableCell>
                             {temp.enrollments[0].events[0].dueDate
                               ? moment(
                                   temp.enrollments[0].events[0].dueDate
