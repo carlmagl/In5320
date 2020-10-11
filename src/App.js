@@ -5,6 +5,7 @@ import i18n from "@dhis2/d2-i18n";
 import styles from "./App.module.css";
 import Organisation from "./components/Organisation.js";
 import { CalendarComp } from "./components/Calendar.js";
+import WebTracker from "./components/WebTracker.js";
 import UserInfo from "./components/UserInfo";
 
 const query = {
@@ -139,6 +140,7 @@ const MyApp = () => {
           );
         }}
       </DataQuery>
+      <WebTracker />
     </div>
   );
 };

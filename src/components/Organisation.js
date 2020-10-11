@@ -21,6 +21,7 @@ const Organization = (query) => {
     <DataQuery query={query.query}>
       {({ error, loading, data }) => {
         if (error) return <span>ERROR</span>;
+        //TODO: Add centeredcontent on this, so loading ... comes in the middle of the page.
         if (loading) return <span>...</span>;
         console.log(data.trackedEntityInstances.trackedEntityInstances);
         console.log(
@@ -39,6 +40,7 @@ const Organization = (query) => {
                   <TableCellHead>Last name</TableCellHead>
                   <TableCellHead>Phone</TableCellHead>
                   <TableCellHead>
+                    Number of Cases:{" "}
                     {data.trackedEntityInstances.trackedEntityInstances.length}
                   </TableCellHead>
                   <TableCellHead></TableCellHead>
@@ -57,7 +59,12 @@ const Organization = (query) => {
                       )
                       .map((temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
-                          <TableCell style={{ color: "red" }}>
+                          {console.log(
+                            moment(
+                              temp.enrollments[0].events[0].dueDate
+                            ).fromNow()
+                          )}
+                          <TableCell className={styles.red}>
                             {temp.enrollments[0].events[0].dueDate
                               ? moment(
                                   temp.enrollments[0].events[0].dueDate
