@@ -85,17 +85,6 @@ const MyApp = () => {
                 <UserInfo />
                 <Radio
                   dataTest="dhis2-uicore-radio"
-                  label="Both"
-                  name="Both"
-                  checked={both}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setBoth(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
                   label="Index"
                   name="Index"
                   checked={index}
@@ -113,6 +102,17 @@ const MyApp = () => {
                   onChange={() => {
                     resetRadioButtons();
                     setContacts(true);
+                  }}
+                  value="default"
+                />
+                <Radio
+                  dataTest="dhis2-uicore-radio"
+                  label="Both"
+                  name="Both"
+                  checked={both}
+                  onChange={() => {
+                    resetRadioButtons();
+                    setBoth(true);
                   }}
                   value="default"
                 />

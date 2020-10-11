@@ -3,6 +3,8 @@ import { DataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import classes from ".././App.module.css";
 import styles from ".././App.module.css";
+import moment from "moment";
+
 import {
   Table,
   TableRow,
@@ -14,6 +16,7 @@ import {
 } from "@dhis2/ui";
 
 const Organization = (query) => {
+  const Moment = require("moment");
   return (
     <DataQuery query={query.query}>
       {({ error, loading, data }) => {
@@ -42,12 +45,19 @@ const Organization = (query) => {
                 </TableRow>
                 <TableBody>
                   {data &&
-                    data.trackedEntityInstances.trackedEntityInstances.map(
-                      (temp) => (
+                    data.trackedEntityInstances.trackedEntityInstances
+                      /* .sort(
+                        (a, b) =>
+                          new Moment(b.date).format("YYYYMMDD") -
+                          new Moment(a.date).format("YYYYMMDD")
+                      ) */
+                      .map((temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
                           <TableCell>
                             {temp.enrollments[0].events[0].dueDate
-                              ? temp.enrollments[0].events[0].dueDate
+                              ? moment(
+                                  temp.enrollments[0].events[0].dueDate
+                                ).fromNow()
                               : "NaN"}
                           </TableCell>
                           <TableCell>
@@ -101,11 +111,9 @@ const Organization = (query) => {
                             <Button
                               dataTest="dhis2-uicore-button"
                               name="Primary button"
-                              onClick={function logger(_ref) {
-                                var name = _ref.name,
-                                  value = _ref.value;
-                                return console.info(
-                                  "".concat(name, ": ").concat(value)
+                              onClick={() => {
+                                window.open(
+                                  `https://course.dhis2.org/hmis/dhis-web-tracker-capture/index.html#/dashboard?tei=${temp.trackedEntityInstance}&program=uYjxkTbwRNf&ou=JwnjhjVgXP2`
                                 );
                               }}
                               primary
@@ -116,8 +124,7 @@ const Organization = (query) => {
                             </Button>
                           </TableCell>
                         </TableRow>
-                      )
-                    )}
+                      ))}
                 </TableBody>
               </Table>
             </nav>
