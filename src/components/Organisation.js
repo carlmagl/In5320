@@ -46,14 +46,18 @@ const Organization = (query) => {
                 <TableBody>
                   {data &&
                     data.trackedEntityInstances.trackedEntityInstances
-                      /* .sort(
+                      .sort(
                         (a, b) =>
-                          new Moment(b.date).format("YYYYMMDD") -
-                          new Moment(a.date).format("YYYYMMDD")
-                      ) */
+                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                            "YYYYMMDD"
+                          ) -
+                          new Moment(b.enrollments[0].events[0].dueDate).format(
+                            "YYYYMMDD"
+                          )
+                      )
                       .map((temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
-                          <TableCell>
+                          <TableCell style={{ color: "red" }}>
                             {temp.enrollments[0].events[0].dueDate
                               ? moment(
                                   temp.enrollments[0].events[0].dueDate
@@ -63,7 +67,7 @@ const Organization = (query) => {
                           <TableCell>
                             {temp.programOwners[0].program === "uYjxkTbwRNf"
                               ? "INDEX"
-                              : "CONTACTS"}
+                              : "CONTACT"}
                           </TableCell>
                           <TableCell>
                             {
