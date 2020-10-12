@@ -3,9 +3,11 @@ import { DataQuery } from "@dhis2/app-runtime";
 import { Radio } from "@dhis2/ui-core";
 import i18n from "@dhis2/d2-i18n";
 import styles from "./App.module.css";
-import Organisation from "./Components/Organisation.js";
-import { CalendarComp } from "./Components/Calendar.js";
-import UserInfo from "./Components/UserInfo.js";
+import Organisation from "./components/Organisation.js";
+import { CalendarComp } from "./components/Calendar.js";
+import WebTracker from "./components/WebTracker.js";
+import UserInfo from "./components/UserInfo";
+
 
 const query = {
   me: {
@@ -139,6 +141,7 @@ const MyApp = () => {
           );
         }}
       </DataQuery>
+      <WebTracker />
     </div>
   );
 };

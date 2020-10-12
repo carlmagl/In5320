@@ -15,12 +15,17 @@ import {
 } from "@dhis2/ui";
 import { ListButton } from "./ListButtons.js";
 
+function checkIfDateHasExpired(dueDate) {
+  return moment().diff(dueDate, "days") > 0;
+}
+
 const Organization = (query) => {
   const Moment = require("moment");
   return (
     <DataQuery query={query.query}>
       {({ error, loading, data }) => {
         if (error) return <span>ERROR</span>;
+        //TODO: Add centeredcontent on this, so loading ... comes in the middle of the page.
         if (loading) return <span>...</span>;
         console.log(data.trackedEntityInstances.trackedEntityInstances);
         console.log(
@@ -39,6 +44,7 @@ const Organization = (query) => {
                   <TableCellHead>Last name</TableCellHead>
                   <TableCellHead>Phone</TableCellHead>
                   <TableCellHead>
+                    Number of Cases:{" "}
                     {data.trackedEntityInstances.trackedEntityInstances.length}
                   </TableCellHead>
                   <TableCellHead></TableCellHead>
@@ -46,13 +52,31 @@ const Organization = (query) => {
                 <TableBody>
                   {data &&
                     data.trackedEntityInstances.trackedEntityInstances
-                      /* .sort(
+                      .sort(
                         (a, b) =>
-                          new Moment(b.date).format("YYYYMMDD") -
-                          new Moment(a.date).format("YYYYMMDD")
-                      ) */
+                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                            "YYYYMMDD"
+                          ) -
+                          new Moment(b.enrollments[0].events[0].dueDate).format(
+                            "YYYYMMDD"
+                          )
+                      )
                       .map((temp) => (
-                        <TableRow key={temp.trackedEntityInstance}>
+                        <TableRow
+                          key={temp.trackedEntityInstance}
+                          className={
+                            checkIfDateHasExpired(
+                              temp.enrollments[0].events[0].dueDate
+                            )
+                              ? styles.red
+                              : ""
+                          }
+                        >
+                          {console.log(
+                            moment(
+                              temp.enrollments[0].events[0].dueDate
+                            ).fromNow()
+                          )}
                           <TableCell>
                             {temp.enrollments[0].events[0].dueDate
                               ? moment(
@@ -63,7 +87,7 @@ const Organization = (query) => {
                           <TableCell>
                             {temp.programOwners[0].program === "uYjxkTbwRNf"
                               ? "INDEX"
-                              : "CONTACTS"}
+                              : "CONTACT"}
                           </TableCell>
                           <TableCell>
                             {
