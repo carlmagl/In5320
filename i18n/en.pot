@@ -5,11 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2020-10-10T09:28:59.611Z\n"
-"PO-Revision-Date: 2020-10-10T09:28:59.611Z\n"
-
-msgid "All tracked Entities for organization"
-msgstr ""
+"POT-Creation-Date: 2020-10-12T08:34:35.597Z\n"
+"PO-Revision-Date: 2020-10-12T08:34:35.597Z\n"
 
 msgid "Hello, {{name}}"
 msgstr ""
