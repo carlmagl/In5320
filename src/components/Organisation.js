@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { DataQuery } from "@dhis2/app-runtime";
-import i18n from "@dhis2/d2-i18n";
-import classes from ".././App.module.css";
 import styles from ".././App.module.css";
-import moment from "moment";
+import moment from "moment"; 
+import Loader from "../components/Loader"
 
 import {
   Table,
@@ -11,7 +10,6 @@ import {
   TableCellHead,
   TableBody,
   TableCell,
-  MenuSectionHeader,
 } from "@dhis2/ui";
 import { ListButton } from "./ListButtons.js";
 
@@ -24,9 +22,9 @@ const Organization = (query) => {
   return (
     <DataQuery query={query.query}>
       {({ error, loading, data }) => {
-        if (error) return <span>ERROR</span>;
+        if (error) return <h2>ERROR</h2>;
         //TODO: Add centeredcontent on this, so loading ... comes in the middle of the page.
-        if (loading) return <span>...</span>;
+        if (loading) return <Loader/>
         console.log(data.trackedEntityInstances.trackedEntityInstances);
         console.log(
           data.trackedEntityInstances.trackedEntityInstances.enrollments
@@ -119,7 +117,6 @@ const Organization = (query) => {
                           <TableCell>
                             {" "}
                             <ListButton name="Tracker Capture" />{" "}
-
                           </TableCell>
                         </TableRow>
                       ))}
