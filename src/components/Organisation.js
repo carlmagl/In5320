@@ -3,6 +3,8 @@ import { DataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import classes from ".././App.module.css";
 import styles from ".././App.module.css";
+import moment from "moment";
+
 import {
   Table,
   TableRow,
@@ -14,6 +16,7 @@ import {
 import { ListButton } from "./ListButtons.js";
 
 const Organization = (query) => {
+  const Moment = require("moment");
   return (
     <DataQuery query={query.query}>
       {({ error, loading, data }) => {
@@ -42,12 +45,19 @@ const Organization = (query) => {
                 </TableRow>
                 <TableBody>
                   {data &&
-                    data.trackedEntityInstances.trackedEntityInstances.map(
-                      (temp) => (
+                    data.trackedEntityInstances.trackedEntityInstances
+                      /* .sort(
+                        (a, b) =>
+                          new Moment(b.date).format("YYYYMMDD") -
+                          new Moment(a.date).format("YYYYMMDD")
+                      ) */
+                      .map((temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
                           <TableCell>
                             {temp.enrollments[0].events[0].dueDate
-                              ? temp.enrollments[0].events[0].dueDate
+                              ? moment(
+                                  temp.enrollments[0].events[0].dueDate
+                                ).fromNow()
                               : "NaN"}
                           </TableCell>
                           <TableCell>
@@ -85,10 +95,10 @@ const Organization = (query) => {
                           <TableCell>
                             {" "}
                             <ListButton name="Tracker Capture" />{" "}
+
                           </TableCell>
                         </TableRow>
-                      )
-                    )}
+                      ))}
                 </TableBody>
               </Table>
             </nav>

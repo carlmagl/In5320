@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@dhis2/app-runtime": "^2.3.0",
+    "moment": "^2.29.1",
     "react-calendar": "^3.1.0"
   }
 }
