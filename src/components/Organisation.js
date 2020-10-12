@@ -10,8 +10,8 @@ import {
   TableBody,
   TableCell,
   MenuSectionHeader,
-  Button,
 } from "@dhis2/ui";
+import { ListButton } from "./ListButtons.js";
 
 const Organization = (query) => {
   return (
@@ -80,40 +80,11 @@ const Organization = (query) => {
                               : "NaN"}
                           </TableCell>
                           <TableCell>
-                            <Button
-                              dataTest="dhis2-uicore-button"
-                              name="Primary button"
-                              onClick={function logger(_ref) {
-                                var name = _ref.name,
-                                  value = _ref.value;
-                                return console.info(
-                                  "".concat(name, ": ").concat(value)
-                                );
-                              }}
-                              primary
-                              type="button"
-                              value="default"
-                            >
-                              Overview
-                            </Button>
+                            <ListButton name="Overview" />
                           </TableCell>
                           <TableCell>
-                            <Button
-                              dataTest="dhis2-uicore-button"
-                              name="Primary button"
-                              onClick={function logger(_ref) {
-                                var name = _ref.name,
-                                  value = _ref.value;
-                                return console.info(
-                                  "".concat(name, ": ").concat(value)
-                                );
-                              }}
-                              primary
-                              type="button"
-                              value="default"
-                            >
-                              Tracker capture
-                            </Button>
+                            {" "}
+                            <ListButton name="Tracker Capture" />{" "}
                           </TableCell>
                         </TableRow>
                       )
