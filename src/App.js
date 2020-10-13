@@ -3,11 +3,11 @@ import { DataQuery } from "@dhis2/app-runtime";
 import { Radio } from "@dhis2/ui-core";
 import i18n from "@dhis2/d2-i18n";
 import styles from "./App.module.css";
-import Organisation from "./components/Organisation.js";
-import { CalendarComp } from "./components/Calendar.js";
-import WebTracker from "./components/WebTracker.js";
-import UserInfo from "./components/UserInfo";
-
+import Organisation from "./Components/Organisation.js";
+import { CalendarComp } from "./Components/Calendar.js";
+import WebTracker from "./Components/WebTracker.js";
+import UserInfo from "./Components/UserInfo";
+import { RadioBtnComp } from "./Components/RadioButtons.js";
 
 const query = {
   me: {
@@ -62,16 +62,7 @@ const completedQuery = {
 };
 
 const MyApp = () => {
-  const [both, setBoth] = useState(false);
-  const [index, setIndex] = useState(true);
-  const [contacts, setContacts] = useState(false);
-  const [completed, setCompleted] = useState(false);
-  function resetRadioButtons() {
-    setBoth(false);
-    setIndex(false);
-    setContacts(false);
-    setCompleted(false);
-  }
+  const [clicked, setClicked] = useState("Index");
 
   return (
     <div className={styles.container}>
@@ -85,57 +76,19 @@ const MyApp = () => {
             <>
               <div className={styles.menu}>
                 <UserInfo />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Index"
-                  name="Index"
-                  checked={index}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setIndex(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Contacts"
-                  name="Contacts"
-                  checked={contacts}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setContacts(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Both"
-                  name="Both"
-                  checked={both}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setBoth(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Completed"
-                  name="Completed"
-                  checked={completed}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setCompleted(true);
-                  }}
-                  value="default"
-                />
+                <RadioBtnComp setClicked={setClicked} />
                 <CalendarComp />
               </div>
               <>
-                {both && <Organisation query={bothQuery} />}
-                {index && <Organisation query={activeQuery} />}
-                {contacts && <Organisation query={contactsQuery} />}
-                {completed && <Organisation query={completedQuery} />}
+                {clicked === "Both" && <Organisation query={bothQuery} />}
+                {console.log(clicked)}
+                {clicked === "Index" && <Organisation query={activeQuery} />}
+                {clicked === "Contacts" && (
+                  <Organisation query={contactsQuery} />
+                )}
+                {clicked === "Completed" && (
+                  <Organisation query={completedQuery} />
+                )}
               </>
             </>
           );
