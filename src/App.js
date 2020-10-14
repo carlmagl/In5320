@@ -9,6 +9,7 @@ import UserInfo from "./components/UserInfo";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import { ContactModule } from "./components/ContactModule";
+import TotalCases from "./components/TotalCases";
 
 const query = {
   me: {
@@ -16,17 +17,7 @@ const query = {
   },
 };
 
-const bothQuery = {
-  trackedEntityInstances: {
-    resource: "trackedEntityInstances",
-    params: {
-      ou: "JwnjhjVgXP2",
-      fields: "*",
-    },
-  },
-};
-
-const activeQuery = {
+const indexQuery = {
   trackedEntityInstances: {
     resource: "trackedEntityInstances",
     params: {
@@ -50,6 +41,16 @@ const contactsQuery = {
   },
 };
 
+const bothQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances",
+    params: {
+      ou: "JwnjhjVgXP2",
+      fields: "*",
+    },
+  },
+};
+
 const completedQuery = {
   trackedEntityInstances: {
     resource: "trackedEntityInstances",
@@ -64,6 +65,9 @@ const completedQuery = {
 
 const MyApp = () => {
   const [clickedModal, setClickedModal] = useState(false);
+  const [dateRange, setDateRange] = useState(new Date());
+  const [totalCases, setTotalCases] = useState();
+
   const [clicked, setClicked] = useState("Index");
 
   return (
@@ -77,30 +81,42 @@ const MyApp = () => {
               <div className={styles.menu}>
                 <UserInfo />
                 <RadioButtons setClicked={setClicked} />
-                <CalendarComponent />
+                <CalendarComponent
+                  dateRange={dateRange}
+                  setDateRange={setDateRange}
+                />
+                <TotalCases dateRange={dateRange} totalCases={totalCases} />
               </div>
               <>
                 {clicked === "Index" && (
                   <Organisation
-                    query={activeQuery}
+                    query={indexQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
                     setClickedModal={setClickedModal}
                   />
                 )}
                 {clicked === "Contacts" && (
                   <Organisation
                     query={contactsQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
                     setClickedModal={setClickedModal}
                   />
                 )}
                 {clicked === "Both" && (
                   <Organisation
                     query={bothQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
                     setClickedModal={setClickedModal}
                   />
                 )}
                 {clicked === "Completed" && (
                   <Organisation
                     query={completedQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
                     setClickedModal={setClickedModal}
                   />
                 )}
