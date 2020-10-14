@@ -1,8 +1,11 @@
 import React from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from ".././App.module.css";
-import moment from "moment"; 
+
+import moment from "moment";
+import { ContactModule } from "./ContactModule";
 import Loader from "../components/Loader"
+
 
 import {
   Table,
@@ -10,17 +13,20 @@ import {
   TableCellHead,
   TableBody,
   TableCell,
+  MenuSectionHeader
 } from "@dhis2/ui";
 import { ListButton } from "./ListButtons.js";
+import { sharedPropTypes } from "@dhis2/ui-constants";
 
 function checkIfDateHasExpired(dueDate) {
   return moment().diff(dueDate, "days") > 0;
 }
 
-const Organization = (query) => {
+const Organization = props => {
   const Moment = require("moment");
+
   return (
-    <DataQuery query={query.query}>
+    <DataQuery query={props.query}>
       {({ error, loading, data }) => {
         if (error) return <h2>ERROR</h2>;
         //TODO: Add centeredcontent on this, so loading ... comes in the middle of the page.
@@ -59,7 +65,7 @@ const Organization = (query) => {
                             "YYYYMMDD"
                           )
                       )
-                      .map((temp) => (
+                      .map(temp => (
                         <TableRow
                           key={temp.trackedEntityInstance}
                           className={
@@ -90,29 +96,31 @@ const Organization = (query) => {
                           <TableCell>
                             {
                               temp.attributes.find(
-                                (element) => element.attribute === "sB1IHYu2xQT"
+                                element => element.attribute === "sB1IHYu2xQT"
                               ).value
                             }
                           </TableCell>
                           <TableCell>
                             {
                               temp.attributes.find(
-                                (element) => element.attribute === "ENRjVGxVL6l"
+                                element => element.attribute === "ENRjVGxVL6l"
                               ).value
                             }
                           </TableCell>
                           <TableCell>
                             {temp.attributes.find(
-                              (element) => element.attribute === "fctSQp5nAYl"
+                              element => element.attribute === "fctSQp5nAYl"
                             )
                               ? temp.attributes.find(
-                                  (element) =>
-                                    element.attribute === "fctSQp5nAYl"
+                                  element => element.attribute === "fctSQp5nAYl"
                                 ).value
                               : "NaN"}
                           </TableCell>
                           <TableCell>
-                            <ListButton name="Overview" />
+                            <ListButton
+                              setClickedModal={props.setClickedModal}
+                              name="overview"
+                            />
                           </TableCell>
                           <TableCell>
                             {" "}

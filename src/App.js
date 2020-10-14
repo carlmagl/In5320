@@ -3,16 +3,17 @@ import { DataQuery } from "@dhis2/app-runtime";
 import { Radio } from "@dhis2/ui-core";
 import i18n from "@dhis2/d2-i18n";
 import styles from "./App.module.css";
-import Organisation from "./Components/Organisation.js";
-import { CalendarComp } from "./Components/Calendar.js";
-import WebTracker from "./Components/WebTracker.js";
-import UserInfo from "./Components/UserInfo";
-import { RadioBtnComp } from "./Components/RadioButtons.js";
+
+import Organisation from "./components/Organisation.js";
+import { CalendarComp } from "./components/Calendar.js";
+import WebTracker from "./components/WebTracker.js";
+import UserInfo from "./components/UserInfo";
+import { ContactModule } from "./components/ContactModule";
 
 const query = {
   me: {
-    resource: "me",
-  },
+    resource: "me"
+  }
 };
 
 const bothQuery = {
@@ -20,9 +21,9 @@ const bothQuery = {
     resource: "trackedEntityInstances",
     params: {
       ou: "JwnjhjVgXP2",
-      fields: "*",
-    },
-  },
+      fields: "*"
+    }
+  }
 };
 
 const activeQuery = {
@@ -32,9 +33,9 @@ const activeQuery = {
       ou: "JwnjhjVgXP2",
       program: "uYjxkTbwRNf",
       programStatus: "ACTIVE",
-      fields: "*",
-    },
-  },
+      fields: "*"
+    }
+  }
 };
 
 const contactsQuery = {
@@ -44,9 +45,9 @@ const contactsQuery = {
       ou: "JwnjhjVgXP2",
       program: "DM9n1bUw8W8",
       programStatus: "ACTIVE",
-      fields: "*",
-    },
-  },
+      fields: "*"
+    }
+  }
 };
 
 const completedQuery = {
@@ -56,12 +57,24 @@ const completedQuery = {
       ou: "JwnjhjVgXP2",
       program: "uYjxkTbwRNf",
       programStatus: "COMPLETED",
-      fields: "*",
-    },
-  },
+      fields: "*"
+    }
+  }
 };
 
 const MyApp = () => {
+  const [clickedModal, setClickedModal] = useState(false);
+  const [both, setBoth] = useState(false);
+  const [index, setIndex] = useState(true);
+  const [contacts, setContacts] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  function resetRadioButtons() {
+    setBoth(false);
+    setIndex(false);
+    setContacts(false);
+    setCompleted(false);
+  }
+
   const [clicked, setClicked] = useState("Index");
 
   return (
@@ -80,14 +93,30 @@ const MyApp = () => {
                 <CalendarComp />
               </div>
               <>
-                {clicked === "Both" && <Organisation query={bothQuery} />}
-                {console.log(clicked)}
-                {clicked === "Index" && <Organisation query={activeQuery} />}
-                {clicked === "Contacts" && (
-                  <Organisation query={contactsQuery} />
+
+                {both && (
+                  <Organisation
+                    query={bothQuery}
+                    setClickedModal={setClickedModal}
+                  />
                 )}
-                {clicked === "Completed" && (
-                  <Organisation query={completedQuery} />
+                {index && (
+                  <Organisation
+                    query={activeQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {contacts && (
+                  <Organisation
+                    query={contactsQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {completed && (
+                  <Organisation
+                    query={completedQuery}
+                    setClickedModal={setClickedModal}
+                  />
                 )}
               </>
             </>
@@ -95,6 +124,9 @@ const MyApp = () => {
         }}
       </DataQuery>
       <WebTracker />
+
+      {clickedModal && <ContactModule setClickedModal={setClickedModal} />}
+      {console.log(clickedModal)}
     </div>
   );
 };
