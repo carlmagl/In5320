@@ -7,6 +7,7 @@ const ListButton = (props) => {
       dataTest="dhis2-uicore-button"
       name="Primary button"
       onClick={function logger(_ref) {
+        href=`route./${props.temp.tracke}`
         var name = _ref.name,
           value = _ref.value;
         return console.info("".concat(name, ": ").concat(value));

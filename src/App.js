@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import { Radio } from "@dhis2/ui-core";
-import i18n from "@dhis2/d2-i18n";
 import styles from "./App.module.css";
 import Organisation from "./components/Organisation.js";
 import { CalendarComp } from "./components/Calendar.js";
-import WebTracker from "./components/WebTracker.js";
 import UserInfo from "./components/UserInfo";
-
+import Loader from "./components/Loader";
+import Error from "./components/Error";
 
 const query = {
   me: {
@@ -77,10 +76,8 @@ const MyApp = () => {
     <div className={styles.container}>
       <DataQuery query={query}>
         {({ error, loading, data }) => {
-          console.log(data);
-          if (error) return <span>ERROR</span>;
-          if (loading) return <span>...</span>;
-          console.log(data.me.organisationUnits[0].id);
+          if (error) return <Error />;
+          if (loading) return <Loader />;
           return (
             <>
               <div className={styles.menu}>
@@ -141,7 +138,6 @@ const MyApp = () => {
           );
         }}
       </DataQuery>
-      <WebTracker />
     </div>
   );
 };
