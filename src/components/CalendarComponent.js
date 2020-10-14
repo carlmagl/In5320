@@ -3,20 +3,18 @@ import Calendar from "react-calendar";
 import { useState } from "react";
 import "react-calendar/dist/Calendar.css";
 
-const CalendarComponent = () => {
-  const [value, setValue] = useState(new Date());
-
+const CalendarComponent = (props) => {
   function onChange(nextValue) {
-    setValue(nextValue);
+    props.setDateRange(nextValue);
   }
 
   return (
     <Calendar
       onChange={onChange}
-      value={value}
+      value={props.dateRange}
       selectRange={true}
       showWeekNumbers={true}
-      onClick={console.log(value)}
+      onClick={console.log(props.dateRange)}
     />
   );
 };
