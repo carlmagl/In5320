@@ -34,6 +34,10 @@ function checkIfDateHasExpired(dueDate, status) {
   return "";
 }
 
+function findDateFromRange(dateRange) {
+  return Array.isArray(dateRange) ? dateRange[1] : dateRange[0];
+}
+
 const Organization = (props) => {
   const Moment = require("moment");
   const [clikedTracker, setClickedTracker] = useState(false);
@@ -58,6 +62,18 @@ const Organization = (props) => {
                   <TableCellHead>
                     Number of Cases:{" "}
                     {data.trackedEntityInstances.trackedEntityInstances.length}
+                    {props.setTotalCases(
+                      data.trackedEntityInstances.trackedEntityInstances.filter(
+                        (a) =>
+                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                            "YYYYMMDD"
+                          ) -
+                            new Moment(
+                              findDateFromRange(props.dateRange)
+                            ).format("YYYYMMDD") <
+                          0
+                      ).length
+                    )}
                   </TableCellHead>
                 </TableRow>
                 <TableBody id="Tbody">
@@ -72,6 +88,16 @@ const Organization = (props) => {
                           new Moment(b.enrollments[0].events[0].dueDate).format(
                             "YYYYMMDD"
                           )
+                      )
+                      .filter(
+                        (a) =>
+                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                            "YYYYMMDD"
+                          ) -
+                            new Moment(
+                              findDateFromRange(props.dateRange)
+                            ).format("YYYYMMDD") <
+                          0
                       )
                       .map((temp) => (
                         <TableRow key={temp.trackedEntityInstance}>
