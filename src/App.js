@@ -67,6 +67,7 @@ const MyApp = () => {
   const [clickedModal, setClickedModal] = useState(false);
   const [dateRange, setDateRange] = useState(new Date());
   const [totalCases, setTotalCases] = useState();
+
   const [clicked, setClicked] = useState("Index");
 
   return (

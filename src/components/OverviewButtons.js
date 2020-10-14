@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button } from "@dhis2/ui";
 import { ContactModule } from "./ContactModule";
 
-const ListButton = (props) => {
+const OverviewButton = (props) => {
   return (
     <Button
       onClick={() => {
         props.setClickedModal(true);
       }}
-      component={<ContactModule />}
+      component={<ContactModule data={props.temp} />}
       dataTest="dhis2-uicore-button"
       name="Primary button"
       primary
@@ -16,8 +16,9 @@ const ListButton = (props) => {
       value="default"
     >
       {props.name}
+      {console.log(props.temp)}
     </Button>
   );
 };
 
-export { ListButton };
+export default OverviewButton;

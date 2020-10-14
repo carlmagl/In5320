@@ -9,10 +9,10 @@ import {
   Table,
   TableRow,
   TableCellHead,
-  TableBody
+  TableBody,
 } from "@dhis2/ui";
 
-const ContactModule = props => {
+const ContactModule = (props) => {
   return (
     <Modal dataTest="dhis2-uicore-modal" position="top">
       <ModalTitle dataTest="dhis2-uicore-modaltitle">Name of index</ModalTitle>
@@ -26,7 +26,7 @@ const ContactModule = props => {
             <TableCellHead>Phone</TableCellHead>
           </TableRow>
           <TableBody>
-            <TableRow>NAVN</TableRow>
+            <TableRow>{props.temp}</TableRow>
           </TableBody>
         </Table>
       </ModalContent>
@@ -35,7 +35,7 @@ const ContactModule = props => {
         <ButtonStrip dataTest="dhis2-uicore-buttonstrip" end>
           <Button
             dataTest="dhis2-uicore-button"
-            onClick={function() {
+            onClick={function () {
               props.setClickedModal(false);
             }}
             secondary
