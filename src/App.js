@@ -64,7 +64,6 @@ const completedQuery = {
 
 const MyApp = () => {
   const [clickedModal, setClickedModal] = useState(false);
-
   const [clicked, setClicked] = useState("Index");
 
   return (

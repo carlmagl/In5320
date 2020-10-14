@@ -4,8 +4,6 @@ import styles from ".././App.module.css";
 import moment from "moment";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import { ContactModule } from "./ContactModule";
-
 import {
   Table,
   TableRow,
@@ -14,8 +12,8 @@ import {
   TableCell,
   Tag,
 } from "@dhis2/ui";
-import { ListButton } from "./ListButtons.js";
-import { sharedPropTypes } from "@dhis2/ui-constants";
+import OverviewButton from "./OverviewButtons";
+import TrackerButton from "./TrackerButton";
 
 function checkIfCompleted(status) {
   return status === "COMPLETED";
@@ -38,6 +36,7 @@ function checkIfDateHasExpired(dueDate, status) {
 
 const Organization = (props) => {
   const Moment = require("moment");
+  const [clikedTracker, setClickedTracker] = useState(false);
 
   return (
     <DataQuery query={props.query}>
@@ -139,17 +138,21 @@ const Organization = (props) => {
                             </Tag>
                           </TableCell>
                           <TableCell>
-                            <ListButton
-                              setClickedModal={props.setClickedModal}
-                              name="overview"
-                            />
+                            {temp.programOwners[0].program === "uYjxkTbwRNf" ? (
+                              <OverviewButton
+                                setClickedModal={props.setClickedModal}
+                                name="overview"
+                                temp={temp.enrollments[0].status}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </TableCell>
                           <TableCell>
-                            {" "}
-                            <ListButton
-                              temp={temp.trackedEntityInstance}
+                            <TrackerButton
+                              setClickedTracker={setClickedTracker}
                               name="Tracker Capture"
-                            />{" "}
+                            />
                           </TableCell>
                         </TableRow>
                       ))}
