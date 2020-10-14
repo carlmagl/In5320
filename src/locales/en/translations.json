@@ -1,5 +1,3 @@
 {
-    "Hello {{name}}": "",
-    "Organisation =  {{organisation}}": "",
-    "All tracked Entities for organization": ""
+    "Hello, {{name}}": ""
 }
