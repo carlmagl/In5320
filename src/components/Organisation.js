@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { DataQuery } from "@dhis2/app-runtime";
-import i18n from "@dhis2/d2-i18n";
-import classes from ".././App.module.css";
 import styles from ".././App.module.css";
+
 import moment from "moment";
 import { ContactModule } from "./ContactModule";
+import Loader from "../components/Loader"
+
 
 import {
   Table,
@@ -27,9 +28,9 @@ const Organization = props => {
   return (
     <DataQuery query={props.query}>
       {({ error, loading, data }) => {
-        if (error) return <span>ERROR</span>;
+        if (error) return <h2>ERROR</h2>;
         //TODO: Add centeredcontent on this, so loading ... comes in the middle of the page.
-        if (loading) return <span>...</span>;
+        if (loading) return <Loader/>
         console.log(data.trackedEntityInstances.trackedEntityInstances);
         console.log(
           data.trackedEntityInstances.trackedEntityInstances.enrollments
