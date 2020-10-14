@@ -4,6 +4,7 @@ import styles from ".././App.module.css";
 import moment from "moment";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import { ContactModule } from "./ContactModule";
 
 import {
   Table,
@@ -14,6 +15,7 @@ import {
   Tag,
 } from "@dhis2/ui";
 import { ListButton } from "./ListButtons.js";
+import { sharedPropTypes } from "@dhis2/ui-constants";
 
 function checkIfCompleted(status) {
   return status === "COMPLETED";
@@ -34,10 +36,11 @@ function checkIfDateHasExpired(dueDate, status) {
   return "";
 }
 
-const Organization = (query) => {
+const Organization = (props) => {
   const Moment = require("moment");
+
   return (
-    <DataQuery query={query.query}>
+    <DataQuery query={props.query}>
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return <Loader />;
@@ -136,7 +139,10 @@ const Organization = (query) => {
                             </Tag>
                           </TableCell>
                           <TableCell>
-                            <ListButton name="Overview" />
+                            <ListButton
+                              setClickedModal={props.setClickedModal}
+                              name="overview"
+                            />
                           </TableCell>
                           <TableCell>
                             {" "}

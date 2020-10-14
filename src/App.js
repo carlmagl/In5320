@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
-import { Radio } from "@dhis2/ui-core";
+import { RadioBtnComp } from "./components/RadioButtons";
 import styles from "./App.module.css";
+
 import Organisation from "./components/Organisation.js";
 import { CalendarComp } from "./components/Calendar.js";
 import UserInfo from "./components/UserInfo";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
+import { ContactModule } from "./components/ContactModule";
 
 const query = {
   me: {
@@ -61,6 +63,7 @@ const completedQuery = {
 };
 
 const MyApp = () => {
+  const [clickedModal, setClickedModal] = useState(false);
   const [both, setBoth] = useState(false);
   const [index, setIndex] = useState(true);
   const [contacts, setContacts] = useState(false);
@@ -72,6 +75,8 @@ const MyApp = () => {
     setCompleted(false);
   }
 
+  const [clicked, setClicked] = useState("Index");
+
   return (
     <div className={styles.container}>
       <DataQuery query={query}>
@@ -82,62 +87,41 @@ const MyApp = () => {
             <>
               <div className={styles.menu}>
                 <UserInfo />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Index"
-                  name="Index"
-                  checked={index}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setIndex(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Contacts"
-                  name="Contacts"
-                  checked={contacts}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setContacts(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Both"
-                  name="Both"
-                  checked={both}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setBoth(true);
-                  }}
-                  value="default"
-                />
-                <Radio
-                  dataTest="dhis2-uicore-radio"
-                  label="Completed"
-                  name="Completed"
-                  checked={completed}
-                  onChange={() => {
-                    resetRadioButtons();
-                    setCompleted(true);
-                  }}
-                  value="default"
-                />
+                <RadioBtnComp setClicked={setClicked} />
                 <CalendarComp />
               </div>
               <>
-                {both && <Organisation query={bothQuery} />}
-                {index && <Organisation query={activeQuery} />}
-                {contacts && <Organisation query={contactsQuery} />}
-                {completed && <Organisation query={completedQuery} />}
+                {both && (
+                  <Organisation
+                    query={bothQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {index && (
+                  <Organisation
+                    query={activeQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {contacts && (
+                  <Organisation
+                    query={contactsQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {completed && (
+                  <Organisation
+                    query={completedQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
               </>
             </>
           );
         }}
       </DataQuery>
+      {clickedModal && <ContactModule setClickedModal={setClickedModal} />}
+      {console.log(clickedModal)}
     </div>
   );
 };

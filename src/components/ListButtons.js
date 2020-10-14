@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { Button } from "@dhis2/ui";
+import { ContactModule } from "./ContactModule";
 
 const ListButton = (props) => {
   return (
     <Button
+      onClick={() => {
+        props.setClickedModal(true);
+      }}
+      component={<ContactModule />}
       dataTest="dhis2-uicore-button"
       name="Primary button"
-      onClick={function logger(_ref) {
-        href=`route./${props.temp.tracke}`
-        var name = _ref.name,
-          value = _ref.value;
-        return console.info("".concat(name, ": ").concat(value));
-      }}
       primary
       type="button"
       value="default"
