@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Radio } from "@dhis2/ui-core";
 
-const RadioBtnComp = (params) => {
+const RadioButtons = (params) => {
   const [both, setBoth] = useState(false);
   const [index, setIndex] = useState(true);
   const [contacts, setContacts] = useState(false);
@@ -12,7 +12,6 @@ const RadioBtnComp = (params) => {
     setContacts(false);
     setCompleted(false);
   }
-
   return (
     <>
       <Radio
@@ -67,4 +66,4 @@ const RadioBtnComp = (params) => {
   );
 };
 
-export { RadioBtnComp };
+export default RadioButtons;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
-import { RadioBtnComp } from "./components/RadioButtons";
 import styles from "./App.module.css";
 
-import Organisation from "./components/Organisation.js";
-import { CalendarComp } from "./components/Calendar.js";
+import RadioButtons from "./components/RadioButtons";
+import Organisation from "./components/Organisation";
+import CalendarComponent from "./components/CalendarComponent";
 import UserInfo from "./components/UserInfo";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
@@ -64,16 +64,6 @@ const completedQuery = {
 
 const MyApp = () => {
   const [clickedModal, setClickedModal] = useState(false);
-  const [both, setBoth] = useState(false);
-  const [index, setIndex] = useState(true);
-  const [contacts, setContacts] = useState(false);
-  const [completed, setCompleted] = useState(false);
-  function resetRadioButtons() {
-    setBoth(false);
-    setIndex(false);
-    setContacts(false);
-    setCompleted(false);
-  }
 
   const [clicked, setClicked] = useState("Index");
 
@@ -87,29 +77,29 @@ const MyApp = () => {
             <>
               <div className={styles.menu}>
                 <UserInfo />
-                <RadioBtnComp setClicked={setClicked} />
-                <CalendarComp />
+                <RadioButtons setClicked={setClicked} />
+                <CalendarComponent />
               </div>
               <>
-                {both && (
-                  <Organisation
-                    query={bothQuery}
-                    setClickedModal={setClickedModal}
-                  />
-                )}
-                {index && (
+                {clicked === "Index" && (
                   <Organisation
                     query={activeQuery}
                     setClickedModal={setClickedModal}
                   />
                 )}
-                {contacts && (
+                {clicked === "Contacts" && (
                   <Organisation
                     query={contactsQuery}
                     setClickedModal={setClickedModal}
                   />
                 )}
-                {completed && (
+                {clicked === "Both" && (
+                  <Organisation
+                    query={bothQuery}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {clicked === "Completed" && (
                   <Organisation
                     query={completedQuery}
                     setClickedModal={setClickedModal}
