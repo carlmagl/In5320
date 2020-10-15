@@ -171,7 +171,7 @@ const Organization = (props) => {
                             {temp.programOwners[0].program === "uYjxkTbwRNf" ? (
                               <OverviewButton
                                 setClickedModal={props.setClickedModal}
-                                name="overview"
+                                name="Overview"
                                 temp={temp.enrollments[0].status}
                               />
                             ) : (
@@ -182,6 +182,8 @@ const Organization = (props) => {
                             <TrackerButton
                               setClickedTracker={setClickedTracker}
                               name="Tracker Capture"
+                              data={temp.enrollments[0].trackedEntityInstance}
+                              program={temp.programOwners[0].program}
                             />
                           </TableCell>
                         </TableRow>
