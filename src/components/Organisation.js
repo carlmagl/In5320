@@ -51,7 +51,7 @@ const Organization = (props) => {
         if (loading) return <Loader />;
         return (
           <>
-            <nav className={styles.containers} data-test-id="menu">
+            <nav className={styles.main} data-test-id="menu">
               <Table>
                 <TableRow>
                   {/* <CellTitle name="Test"></CellTitle> */}

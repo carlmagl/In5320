@@ -17,6 +17,15 @@ const query = {
   },
 };
 
+const personQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances/QG0e3EvdHFp",
+    params: {
+      fields: "*",
+    },
+  },
+};
+
 const indexQuery = {
   trackedEntityInstances: {
     resource: "trackedEntityInstances",
@@ -123,6 +132,14 @@ const MyApp = () => {
               </>
             </>
           );
+        }}
+      </DataQuery>
+      <DataQuery query={personQuery}>
+        {({ error, loading, data }) => {
+          console.log("Person : ", data);
+          if (error) return <Error />;
+          if (loading) return <Loader />;
+          return <></>;
         }}
       </DataQuery>
       {clickedModal && <ContactModule setClickedModal={setClickedModal} />}

@@ -1,9 +1,10 @@
 .container {
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
   font-size: 1rem;
   display: grid;
-  grid-template-rows: 1fr;
   grid-template-columns: 20% auto;
   grid-template-areas: "sidebar main";
 }
@@ -11,6 +12,8 @@
 .menu {
   border-right: 1px solid rgb(128, 128, 128, 0.5);
   grid-area: sidebar;
+  position: fixed;
+  height: 100vh;
 }
 
 .main {
@@ -23,4 +26,39 @@
 
 .green {
   color: #4caf50;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    display: grid;
+    grid-template-rows: 20% auto;
+    grid-template-areas: "sidebar main";
+  }
+
+  .menu {
+    border-right: 1px solid rgb(128, 128, 128, 0.5);
+    grid-area: sidebar;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    z-index: 1000;
+  }
+
+  .main {
+    grid-area: main;
+  }
+
+  .red {
+    color: #f44336;
+  }
+
+  .green {
+    color: #4caf50;
+  }
 }
