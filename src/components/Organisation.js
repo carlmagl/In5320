@@ -19,12 +19,14 @@ function checkIfCompleted(status) {
   return status === "COMPLETED";
 }
 
-function checkIfActive(status, dueDate) {
-  return !(checkIfCompleted(status) || checkIfOverDue(dueDate));
+function checkIfOverDue(dueDate, status) {
+  return moment().diff(dueDate, "days") > 0 && status !== "COMPLETED";
 }
-
-function checkIfOverDue(dueDate) {
-  return moment().diff(dueDate, "days") > 0;
+function getStatus(dueDate, status) {
+  if (moment().diff(dueDate, "days") > 0 && status !== "COMPLETED") {
+    return "OVERDUE";
+  }
+  return status;
 }
 
 function checkIfDateHasExpired(dueDate, status) {
@@ -154,13 +156,15 @@ const Organization = (props) => {
                               positive={checkIfCompleted(
                                 temp.enrollments[0].status
                               )}
-                              negative={false}
-                              neutral={checkIfActive(
-                                temp.enrollments[0].status,
-                                temp.enrollments[0].events[0].dueDate
+                              negative={checkIfOverDue(
+                                temp.enrollments[0].events[0].dueDate,
+                                temp.enrollments[0].status
                               )}
                             >
-                              {temp.enrollments[0].status}
+                              {getStatus(
+                                temp.enrollments[0].events[0].dueDate,
+                                temp.enrollments[0].status
+                              )}
                             </Tag>
                           </TableCell>
                           <TableCell>
