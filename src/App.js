@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
-import { Radio } from "@dhis2/ui-core";
-import i18n from "@dhis2/d2-i18n";
 import styles from "./App.module.css";
-import Organisation from "./Components/Organisation.js";
-import { CalendarComp } from "./Components/Calendar.js";
-import WebTracker from "./Components/WebTracker.js";
-import UserInfo from "./Components/UserInfo";
-import { RadioBtnComp } from "./Components/RadioButtons.js";
+
+import RadioButtons from "./components/RadioButtons";
+import Organisation from "./components/Organisation";
+import CalendarComponent from "./components/CalendarComponent";
+import UserInfo from "./components/UserInfo";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
+import { ContactModule } from "./components/ContactModule";
+import TotalCases from "./components/TotalCases";
 
 const query = {
   me: {
@@ -15,17 +17,16 @@ const query = {
   },
 };
 
-const bothQuery = {
+const personQuery = {
   trackedEntityInstances: {
-    resource: "trackedEntityInstances",
+    resource: "trackedEntityInstances/QG0e3EvdHFp",
     params: {
-      ou: "JwnjhjVgXP2",
       fields: "*",
     },
   },
 };
 
-const activeQuery = {
+const indexQuery = {
   trackedEntityInstances: {
     resource: "trackedEntityInstances",
     params: {
@@ -49,6 +50,16 @@ const contactsQuery = {
   },
 };
 
+const bothQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances",
+    params: {
+      ou: "JwnjhjVgXP2",
+      fields: "*",
+    },
+  },
+};
+
 const completedQuery = {
   trackedEntityInstances: {
     resource: "trackedEntityInstances",
@@ -62,39 +73,77 @@ const completedQuery = {
 };
 
 const MyApp = () => {
+  const [clickedModal, setClickedModal] = useState(false);
+  const [dateRange, setDateRange] = useState(new Date());
+  const [totalCases, setTotalCases] = useState();
+
   const [clicked, setClicked] = useState("Index");
 
   return (
     <div className={styles.container}>
       <DataQuery query={query}>
         {({ error, loading, data }) => {
-          console.log(data);
-          if (error) return <span>ERROR</span>;
-          if (loading) return <span>...</span>;
-          console.log(data.me.organisationUnits[0].id);
+          if (error) return <Error />;
+          if (loading) return <Loader />;
           return (
             <>
               <div className={styles.menu}>
                 <UserInfo />
-                <RadioBtnComp setClicked={setClicked} />
-                <CalendarComp />
+                <RadioButtons setClicked={setClicked} />
+                <CalendarComponent
+                  dateRange={dateRange}
+                  setDateRange={setDateRange}
+                />
+                <TotalCases dateRange={dateRange} totalCases={totalCases} />
               </div>
               <>
-                {clicked === "Both" && <Organisation query={bothQuery} />}
-                {console.log(clicked)}
-                {clicked === "Index" && <Organisation query={activeQuery} />}
+                {clicked === "Index" && (
+                  <Organisation
+                    query={indexQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
                 {clicked === "Contacts" && (
-                  <Organisation query={contactsQuery} />
+                  <Organisation
+                    query={contactsQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
+                    setClickedModal={setClickedModal}
+                  />
+                )}
+                {clicked === "Both" && (
+                  <Organisation
+                    query={bothQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
+                    setClickedModal={setClickedModal}
+                  />
                 )}
                 {clicked === "Completed" && (
-                  <Organisation query={completedQuery} />
+                  <Organisation
+                    query={completedQuery}
+                    dateRange={dateRange}
+                    setTotalCases={setTotalCases}
+                    setClickedModal={setClickedModal}
+                  />
                 )}
               </>
             </>
           );
         }}
       </DataQuery>
-      <WebTracker />
+      <DataQuery query={personQuery}>
+        {({ error, loading, data }) => {
+          console.log("Person : ", data);
+          if (error) return <Error />;
+          if (loading) return <Loader />;
+          return <></>;
+        }}
+      </DataQuery>
+      {clickedModal && <ContactModule setClickedModal={setClickedModal} />}
+      {console.log(clickedModal)}
     </div>
   );
 };

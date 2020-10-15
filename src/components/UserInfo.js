@@ -13,7 +13,6 @@ const UserInfo = () => (
   <>
     <DataQuery query={query}>
       {({ error, loading, data }) => {
-        console.log(data);
         if (error) return <span>ERROR</span>;
         if (loading) return <span>...</span>;
         return <h1>{i18n.t("Hello, {{name}}", { name: data.me.name })}</h1>;
