@@ -2,40 +2,10 @@ import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from ".././App.module.css";
 import moment from "moment";
-import Loader from "../components/Loader";
-import Error from "../components/Error";
-import {
-  Table,
-  TableRow,
-  TableCellHead,
-  TableBody,
-  TableCell,
-  Tag,
-} from "@dhis2/ui";
-import OverviewButton from "./OverviewButtons";
-import TrackerButton from "./TrackerButton";
-
-function checkIfCompleted(status) {
-  return status === "COMPLETED";
-}
-
-function checkIfOverDue(dueDate, status) {
-  return moment().diff(dueDate, "days") > 0 && status !== "COMPLETED";
-}
-
-function getStatus(dueDate, status) {
-  if (moment().diff(dueDate, "days") > 0 && status !== "COMPLETED") {
-    return "OVERDUE";
-  }
-  return status;
-}
-
-function checkIfDateHasExpired(dueDate, status) {
-  if (moment().diff(dueDate, "days") > 0 && status !== "COMPLETED") {
-    return styles.red;
-  }
-  return "";
-}
+import Loader from "./Loader";
+import Error from "./Error";
+import { Table, TableRow, TableCellHead, TableBody } from "@dhis2/ui";
+import Case from "./Case";
 
 /* checks if dateRange is an array or one todays date.  */
 function findDateFromRange(dateRange) {
@@ -44,6 +14,8 @@ function findDateFromRange(dateRange) {
 
 const CasesList = (props) => {
   const Moment = require("moment");
+
+  //TODO: Is this something we need?
   const [clikedTracker, setClickedTracker] = useState(false);
 
   return (
@@ -56,7 +28,6 @@ const CasesList = (props) => {
             <nav className={styles.main} data-test-id="menu">
               <Table>
                 <TableRow>
-                  {/* <CellTitle name="Test"></CellTitle> */}
                   <TableCellHead>Due Date</TableCellHead>
                   <TableCellHead>Type</TableCellHead>
                   <TableCellHead>First name</TableCellHead>
@@ -103,92 +74,11 @@ const CasesList = (props) => {
                             ).format("YYYYMMDD") <
                           0
                       )
-                      .map((temp) => (
-                        <TableRow key={temp.trackedEntityInstance}>
-                          <TableCell
-                            className={checkIfDateHasExpired(
-                              temp.enrollments[0].events[0].dueDate,
-                              temp.enrollments[0].status
-                            )}
-                          >
-                            {temp.enrollments[0].events[0].dueDate
-                              ? moment(
-                                  temp.enrollments[0].events[0].dueDate
-                                ).fromNow()
-                              : "N/A"}
-                          </TableCell>
-                          <TableCell>
-                            {temp.programOwners[0].program === "uYjxkTbwRNf"
-                              ? "INDEX"
-                              : "CONTACT"}
-                          </TableCell>
-                          <TableCell>
-                            {temp.attributes.find(
-                              (element) => element.attribute === "sB1IHYu2xQT"
-                            ).value
-                              ? temp.attributes.find(
-                                  (element) =>
-                                    element.attribute === "sB1IHYu2xQT"
-                                ).value
-                              : "N/A"}
-                          </TableCell>
-                          <TableCell>
-                            {temp.attributes.find(
-                              (element) => element.attribute === "ENRjVGxVL6l"
-                            ).value
-                              ? temp.attributes.find(
-                                  (element) =>
-                                    element.attribute === "ENRjVGxVL6l"
-                                ).value
-                              : "N/A"}
-                          </TableCell>
-                          <TableCell>
-                            {temp.attributes.find(
-                              (element) => element.attribute === "fctSQp5nAYl"
-                            )
-                              ? temp.attributes.find(
-                                  (element) =>
-                                    element.attribute === "fctSQp5nAYl"
-                                ).value
-                              : "N/A"}
-                          </TableCell>
-                          <TableCell>
-                            <Tag
-                              dataTest="dhis2-uicore-tag"
-                              positive={checkIfCompleted(
-                                temp.enrollments[0].status
-                              )}
-                              negative={checkIfOverDue(
-                                temp.enrollments[0].events[0].dueDate,
-                                temp.enrollments[0].status
-                              )}
-                            >
-                              {getStatus(
-                                temp.enrollments[0].events[0].dueDate,
-                                temp.enrollments[0].status
-                              )}
-                            </Tag>
-                          </TableCell>
-                          <TableCell>
-                            {temp.programOwners[0].program === "uYjxkTbwRNf" ? (
-                              <OverviewButton
-                                setClickedModal={props.setClickedModal}
-                                name="Overview"
-                                temp={temp.enrollments[0].status}
-                              />
-                            ) : (
-                              ""
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            <TrackerButton
-                              setClickedTracker={setClickedTracker}
-                              name="Tracker Capture"
-                              data={temp.enrollments[0].trackedEntityInstance}
-                              program={temp.programOwners[0].program}
-                            />
-                          </TableCell>
-                        </TableRow>
+                      .map((caseSubject) => (
+                        <Case
+                          caseSubject={caseSubject}
+                          setClickedModal={props.setClickedModal}
+                        />
                       ))}
                 </TableBody>
               </Table>
