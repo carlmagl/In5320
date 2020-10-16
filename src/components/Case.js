@@ -35,7 +35,7 @@ function findDateFromRange(dateRange) {
 
 const Case = (props) => {
   const [clikedTracker, setClickedTracker] = useState(false);
-
+  console.log("caseSubject", props.caseSubject.trackedEntityInstance);
   return (
     <>
       <TableRow key={props.caseSubject.trackedEntityInstance}>
@@ -103,7 +103,7 @@ const Case = (props) => {
             <OverviewButton
               setClickedModal={props.setClickedModal}
               name="Overview"
-              caseSubject={props.caseSubject.enrollments[0].status}
+              id={props.caseSubject.trackedEntityInstance}
             />
           ) : (
             ""

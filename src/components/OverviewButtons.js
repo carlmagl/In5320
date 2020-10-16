@@ -6,9 +6,9 @@ const OverviewButton = (props) => {
   return (
     <Button
       onClick={() => {
-        props.setClickedModal(true);
+        console.log(props.id);
+        props.setClickedModal(props.id);
       }}
-      component={<ContactModal data={props.temp} />}
       dataTest="dhis2-uicore-button"
       name="Primary button"
       primary
@@ -16,7 +16,6 @@ const OverviewButton = (props) => {
       value="default"
     >
       {props.name}
-      {console.log(props.temp)}
     </Button>
   );
 };

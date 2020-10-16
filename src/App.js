@@ -82,7 +82,7 @@ const completedQuery = {
 
 const MyApp = () => {
   /* State for if any index case has its overview clicked, then shows modal */
-  const [clickedModal, setClickedModal] = useState(false);
+  const [clickedModal, setClickedModal] = useState();
 
   /* State for dateRange, used for filtering workload */
   const [dateRange, setDateRange] = useState(new Date());
@@ -154,15 +154,9 @@ const MyApp = () => {
           );
         }}
       </DataQuery>
-      <DataQuery query={personQuery}>
-        {({ error, loading, data }) => {
-          console.log("Person : ", data);
-          if (error) return <Error />;
-          if (loading) return <Loader />;
-          return <></>;
-        }}
-      </DataQuery>
-      {clickedModal && <ContactModal setClickedModal={setClickedModal} />}
+      {clickedModal && (
+        <ContactModal id={clickedModal} setClickedModal={setClickedModal} />
+      )}
       {console.log(clickedModal)}
     </div>
   );
