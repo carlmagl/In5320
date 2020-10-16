@@ -22,6 +22,7 @@ function checkIfCompleted(status) {
 function checkIfOverDue(dueDate, status) {
   return moment().diff(dueDate, "days") > 0 && status !== "COMPLETED";
 }
+
 function getStatus(dueDate, status) {
   if (moment().diff(dueDate, "days") > 0 && status !== "COMPLETED") {
     return "OVERDUE";
@@ -36,11 +37,12 @@ function checkIfDateHasExpired(dueDate, status) {
   return "";
 }
 
+/* checks if dateRange is an array or one todays date.  */
 function findDateFromRange(dateRange) {
   return Array.isArray(dateRange) ? dateRange[1] : dateRange[0];
 }
 
-const Organization = (props) => {
+const CasesList = (props) => {
   const Moment = require("moment");
   const [clikedTracker, setClickedTracker] = useState(false);
 
@@ -198,4 +200,4 @@ const Organization = (props) => {
   );
 };
 
-export default Organization;
+export default CasesList;
