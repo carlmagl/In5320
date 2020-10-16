@@ -12,7 +12,7 @@ import {
   TableBody,
 } from "@dhis2/ui";
 
-const ContactModule = (props) => {
+const ContactModal = (props) => {
   return (
     <Modal dataTest="dhis2-uicore-modal" position="top">
       <ModalTitle dataTest="dhis2-uicore-modaltitle">Name of index</ModalTitle>
@@ -49,4 +49,4 @@ const ContactModule = (props) => {
   );
 };
 
-export { ContactModule };
+export default ContactModal;

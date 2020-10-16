@@ -8,7 +8,7 @@ import CalendarComponent from "./components/CalendarComponent";
 import UserInfo from "./components/UserInfo";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
-import { ContactModule } from "./components/ContactModule";
+import ContactModal from "./components/ContactModal";
 import TotalCases from "./components/TotalCases";
 
 /* Query for getting the users information */
@@ -162,7 +162,7 @@ const MyApp = () => {
           return <></>;
         }}
       </DataQuery>
-      {clickedModal && <ContactModule setClickedModal={setClickedModal} />}
+      {clickedModal && <ContactModal setClickedModal={setClickedModal} />}
       {console.log(clickedModal)}
     </div>
   );
