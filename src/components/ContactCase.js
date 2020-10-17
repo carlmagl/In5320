@@ -27,56 +27,58 @@ function checkIfDateHasExpired(dueDate, status) {
 }
 
 const ContactCase = (props) => {
+    const contactCase;
   return (
     <DataQuery query={personQuery(props.tei)}>
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return <Loader />;
         console.log("contactModal", data.trackedEntityInstances);
+        contactCase = data.trackedEntityInstances;
         return (
           <>
             <TableCell
               id="Due Date"
               className={checkIfDateHasExpired(
-                data.trackedEntityInstances.enrollments[0].events[0].dueDate,
-                data.trackedEntityInstances.enrollments[0].status
+                contactCase.enrollments[0].events[0].dueDate,
+                contactCase.enrollments[0].status
               )}
             >
-              {data.trackedEntityInstances.enrollments[0].events[0].dueDate
+              {contactCase.enrollments[0].events[0].dueDate
                 ? moment(
-                    data.trackedEntityInstances.enrollments[0].events[0].dueDate
+                    contactCase.enrollments[0].events[0].dueDate
                   ).fromNow()
                 : "N/A"}
             </TableCell>
             <TableCell id="Type">
-              {data.trackedEntityInstances.programOwners[0].program ===
+              {contactCase.programOwners[0].program ===
               "uYjxkTbwRNf"
                 ? "INDEX"
                 : "CONTACT"}
             </TableCell>
             <TableCell id="First Name">
-              {data.trackedEntityInstances.attributes.find(
+              {contactCase.attributes.find(
                 (element) => element.attribute === "sB1IHYu2xQT"
               ).value
-                ? data.trackedEntityInstances.attributes.find(
+                ? contactCase.attributes.find(
                     (element) => element.attribute === "sB1IHYu2xQT"
                   ).value
                 : "N/A"}
             </TableCell>
             <TableCell id="Last Name">
-              {data.trackedEntityInstances.attributes.find(
+              {contactCase.attributes.find(
                 (element) => element.attribute === "ENRjVGxVL6l"
               ).value
-                ? data.trackedEntityInstances.attributes.find(
+                ? contactCase.attributes.find(
                     (element) => element.attribute === "ENRjVGxVL6l"
                   ).value
                 : "N/A"}
             </TableCell>
             <TableCell id="Phone number">
-              {data.trackedEntityInstances.attributes.find(
+              {contactCase.attributes.find(
                 (element) => element.attribute === "fctSQp5nAYl"
               )
-                ? data.trackedEntityInstances.attributes.find(
+                ? contactCase.attributes.find(
                     (element) => element.attribute === "fctSQp5nAYl"
                   ).value
                 : "N/A"}
@@ -85,10 +87,10 @@ const ContactCase = (props) => {
               <TrackerButton
                 name="Tracker Capture"
                 data={
-                  data.trackedEntityInstances.enrollments[0]
+                  contactCase.enrollments[0]
                     .trackedEntityInstance
                 }
-                program={data.trackedEntityInstances.programOwners[0].program}
+                program={contactCase.programOwners[0].program}
               />
             </TableCell>
           </>

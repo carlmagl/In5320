@@ -39,7 +39,13 @@ const ContactModal = (props) => {
           <>
             <Modal dataTest="dhis2-uicore-modal" position="top">
               <ModalTitle dataTest="dhis2-uicore-modaltitle">
-                {data.trackedEntityInstances.attributes[0].value}
+                {data.trackedEntityInstances.attributes.find(
+                  (element) => element.attribute === "sB1IHYu2xQT"
+                ).value +
+                  " " +
+                  data.trackedEntityInstances.attributes.find(
+                    (element) => element.attribute === "ENRjVGxVL6l"
+                  ).value}
               </ModalTitle>
               <ModalContent dataTest="dhis2-uicore-modalcontent">
                 <Table>
@@ -55,17 +61,21 @@ const ContactModal = (props) => {
                       "Relationships",
                       data.trackedEntityInstances.relationships
                     )}
-                    {data.trackedEntityInstances.relationships.map(
-                      (caseSubject) => (
-                        <TableRow>
-                          <ContactCase
-                            tei={
-                              caseSubject.to.trackedEntityInstance
-                                .trackedEntityInstance
-                            }
-                          />
-                        </TableRow>
+                    {data.trackedEntityInstances.relationships.length ? (
+                      data.trackedEntityInstances.relationships.map(
+                        (caseSubject) => (
+                          <TableRow>
+                            <ContactCase
+                              tei={
+                                caseSubject.to.trackedEntityInstance
+                                  .trackedEntityInstance
+                              }
+                            />
+                          </TableRow>
+                        )
                       )
+                    ) : (
+                      <h2>No contact cases</h2>
                     )}
                   </TableBody>
                 </Table>

@@ -6,7 +6,6 @@ const OverviewButton = (props) => {
   return (
     <Button
       onClick={() => {
-        console.log(props.id);
         props.setClickedModal(props.id);
       }}
       dataTest="dhis2-uicore-button"

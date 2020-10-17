@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import moment from "moment";
 
 const TotalCases = (props) => {
-  console.log("Daterange", props.totalCases);
   return (
     <>
       {Array.isArray(props.dateRange) && (

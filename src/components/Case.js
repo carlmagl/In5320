@@ -29,52 +29,49 @@ function checkIfDateHasExpired(dueDate, status) {
 }
 
 const Case = (props) => {
-  const [clikedTracker, setClickedTracker] = useState(false);
-  console.log("caseSubject", props.caseSubject.trackedEntityInstance);
+  const caseSubject = props.caseSubject;
   return (
     <>
-      <TableRow key={props.caseSubject.trackedEntityInstance}>
+      <TableRow key={caseSubject.trackedEntityInstance}>
         <TableCell
           id="Due Date"
           className={checkIfDateHasExpired(
-            props.caseSubject.enrollments[0].events[0].dueDate,
-            props.caseSubject.enrollments[0].status
+            caseSubject.enrollments[0].events[0].dueDate,
+            caseSubject.enrollments[0].status
           )}
         >
-          {props.caseSubject.enrollments[0].events[0].dueDate
-            ? moment(
-                props.caseSubject.enrollments[0].events[0].dueDate
-              ).fromNow()
+          {caseSubject.enrollments[0].events[0].dueDate
+            ? moment(caseSubject.enrollments[0].events[0].dueDate).fromNow()
             : "N/A"}
         </TableCell>
         <TableCell id="Type">
-          {props.caseSubject.programOwners[0].program === "uYjxkTbwRNf"
+          {caseSubject.programOwners[0].program === "uYjxkTbwRNf"
             ? "INDEX"
             : "CONTACT"}
         </TableCell>
         <TableCell id="First Name">
-          {props.caseSubject.attributes.find(
+          {caseSubject.attributes.find(
             (element) => element.attribute === "sB1IHYu2xQT"
           ).value
-            ? props.caseSubject.attributes.find(
+            ? caseSubject.attributes.find(
                 (element) => element.attribute === "sB1IHYu2xQT"
               ).value
             : "N/A"}
         </TableCell>
         <TableCell id="Last Name">
-          {props.caseSubject.attributes.find(
+          {caseSubject.attributes.find(
             (element) => element.attribute === "ENRjVGxVL6l"
           ).value
-            ? props.caseSubject.attributes.find(
+            ? caseSubject.attributes.find(
                 (element) => element.attribute === "ENRjVGxVL6l"
               ).value
             : "N/A"}
         </TableCell>
         <TableCell id="Phone number">
-          {props.caseSubject.attributes.find(
+          {caseSubject.attributes.find(
             (element) => element.attribute === "fctSQp5nAYl"
           )
-            ? props.caseSubject.attributes.find(
+            ? caseSubject.attributes.find(
                 (element) => element.attribute === "fctSQp5nAYl"
               ).value
             : "N/A"}
@@ -82,24 +79,24 @@ const Case = (props) => {
         <TableCell id="Status">
           <Tag
             dataTest="dhis2-uicore-tag"
-            positive={checkIfCompleted(props.caseSubject.enrollments[0].status)}
+            positive={checkIfCompleted(caseSubject.enrollments[0].status)}
             negative={checkIfOverDue(
-              props.caseSubject.enrollments[0].events[0].dueDate,
-              props.caseSubject.enrollments[0].status
+              caseSubject.enrollments[0].events[0].dueDate,
+              caseSubject.enrollments[0].status
             )}
           >
             {getStatus(
-              props.caseSubject.enrollments[0].events[0].dueDate,
-              props.caseSubject.enrollments[0].status
+              caseSubject.enrollments[0].events[0].dueDate,
+              caseSubject.enrollments[0].status
             )}
           </Tag>
         </TableCell>
         <TableCell>
-          {props.caseSubject.programOwners[0].program === "uYjxkTbwRNf" ? (
+          {caseSubject.programOwners[0].program === "uYjxkTbwRNf" ? (
             <OverviewButton
               setClickedModal={props.setClickedModal}
               name="Overview"
-              id={props.caseSubject.trackedEntityInstance}
+              id={caseSubject.trackedEntityInstance}
             />
           ) : (
             ""
@@ -108,8 +105,8 @@ const Case = (props) => {
         <TableCell>
           <TrackerButton
             name="Tracker Capture"
-            data={props.caseSubject.enrollments[0].trackedEntityInstance}
-            program={props.caseSubject.programOwners[0].program}
+            data={caseSubject.enrollments[0].trackedEntityInstance}
+            program={caseSubject.programOwners[0].program}
           />
         </TableCell>
       </TableRow>
