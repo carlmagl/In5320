@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from "./App.module.css";
-
 import RadioButtons from "./components/RadioButtons";
-import Organisation from "./components/CasesList";
+import CasesList from "./components/CasesList";
 import CalendarComponent from "./components/CalendarComponent";
 import UserInfo from "./components/UserInfo";
 import Loader from "./components/Loader";
@@ -60,7 +59,6 @@ const bothQuery = {
     resource: "trackedEntityInstances",
     params: {
       ou: "JwnjhjVgXP2",
-      programStatus: "COMPLETED",
       fields: "*",
     },
   },
@@ -105,6 +103,7 @@ const MyApp = () => {
         {({ error, loading, data }) => {
           if (error) return <Error />;
           if (loading) return <Loader />;
+          console.log("Me:", data.me.organisationUnits[0]);
           return (
             <>
               <div className={styles.menu}>
@@ -118,7 +117,7 @@ const MyApp = () => {
               </div>
               <>
                 {clicked === "Index" && (
-                  <Organisation
+                  <CasesList
                     query={indexQuery}
                     dateRange={dateRange}
                     setTotalCases={setTotalCases}
@@ -126,7 +125,7 @@ const MyApp = () => {
                   />
                 )}
                 {clicked === "Contacts" && (
-                  <Organisation
+                  <CasesList
                     query={contactsQuery}
                     dateRange={dateRange}
                     setTotalCases={setTotalCases}
@@ -134,7 +133,7 @@ const MyApp = () => {
                   />
                 )}
                 {clicked === "Both" && (
-                  <Organisation
+                  <CasesList
                     query={bothQuery}
                     dateRange={dateRange}
                     setTotalCases={setTotalCases}
@@ -142,7 +141,7 @@ const MyApp = () => {
                   />
                 )}
                 {clicked === "Completed" && (
-                  <Organisation
+                  <CasesList
                     query={completedQuery}
                     dateRange={dateRange}
                     setTotalCases={setTotalCases}

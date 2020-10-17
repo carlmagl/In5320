@@ -64,7 +64,12 @@ const ContactModal = (props) => {
                     {data.trackedEntityInstances.relationships.length ? (
                       data.trackedEntityInstances.relationships.map(
                         (caseSubject) => (
-                          <TableRow>
+                          <TableRow
+                            key={
+                              caseSubject.to.trackedEntityInstance
+                                .trackedEntityInstance
+                            }
+                          >
                             <ContactCase
                               tei={
                                 caseSubject.to.trackedEntityInstance

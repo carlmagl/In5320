@@ -27,58 +27,54 @@ function checkIfDateHasExpired(dueDate, status) {
 }
 
 const ContactCase = (props) => {
-    const contactCase;
   return (
     <DataQuery query={personQuery(props.tei)}>
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return <Loader />;
         console.log("contactModal", data.trackedEntityInstances);
-        contactCase = data.trackedEntityInstances;
+        const contact = data.trackedEntityInstances;
         return (
           <>
             <TableCell
               id="Due Date"
               className={checkIfDateHasExpired(
-                contactCase.enrollments[0].events[0].dueDate,
-                contactCase.enrollments[0].status
+                contact.enrollments[0].events[0].dueDate,
+                contact.enrollments[0].status
               )}
             >
-              {contactCase.enrollments[0].events[0].dueDate
-                ? moment(
-                    contactCase.enrollments[0].events[0].dueDate
-                  ).fromNow()
+              {contact.enrollments[0].events[0].dueDate
+                ? moment(contact.enrollments[0].events[0].dueDate).fromNow()
                 : "N/A"}
             </TableCell>
             <TableCell id="Type">
-              {contactCase.programOwners[0].program ===
-              "uYjxkTbwRNf"
+              {contact.programOwners[0].program === "uYjxkTbwRNf"
                 ? "INDEX"
                 : "CONTACT"}
             </TableCell>
             <TableCell id="First Name">
-              {contactCase.attributes.find(
+              {contact.attributes.find(
                 (element) => element.attribute === "sB1IHYu2xQT"
               ).value
-                ? contactCase.attributes.find(
+                ? contact.attributes.find(
                     (element) => element.attribute === "sB1IHYu2xQT"
                   ).value
                 : "N/A"}
             </TableCell>
             <TableCell id="Last Name">
-              {contactCase.attributes.find(
+              {contact.attributes.find(
                 (element) => element.attribute === "ENRjVGxVL6l"
               ).value
-                ? contactCase.attributes.find(
+                ? contact.attributes.find(
                     (element) => element.attribute === "ENRjVGxVL6l"
                   ).value
                 : "N/A"}
             </TableCell>
             <TableCell id="Phone number">
-              {contactCase.attributes.find(
+              {contact.attributes.find(
                 (element) => element.attribute === "fctSQp5nAYl"
               )
-                ? contactCase.attributes.find(
+                ? contact.attributes.find(
                     (element) => element.attribute === "fctSQp5nAYl"
                   ).value
                 : "N/A"}
@@ -86,11 +82,8 @@ const ContactCase = (props) => {
             <TableCell>
               <TrackerButton
                 name="Tracker Capture"
-                data={
-                  contactCase.enrollments[0]
-                    .trackedEntityInstance
-                }
-                program={contactCase.programOwners[0].program}
+                data={contact.enrollments[0].trackedEntityInstance}
+                program={contact.programOwners[0].program}
               />
             </TableCell>
           </>

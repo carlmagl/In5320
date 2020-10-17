@@ -76,6 +76,7 @@ const CasesList = (props) => {
                       )
                       .map((caseSubject) => (
                         <Case
+                          key={caseSubject.trackedEntityInstance}
                           caseSubject={caseSubject}
                           setClickedModal={props.setClickedModal}
                         />

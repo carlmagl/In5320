@@ -1,10 +1,11 @@
 import React from "react";
 import { CircularLoader } from "@dhis2/ui";
+import styles from ".././App.module.css";
 
 const Loader = () => {
   return (
     <div
-      className="loader"
+      className={styles.main}
       style={{
         display: "flex",
         justifyContent: "center",
