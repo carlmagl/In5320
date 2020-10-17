@@ -50,6 +50,7 @@ const CasesList = (props) => {
                       ).length
                     )}
                   </TableCellHead>
+                  <TableCellHead>Tracker-Capture</TableCellHead>
                 </TableRow>
                 <TableBody id="Tbody">
                   {console.log(data)}
