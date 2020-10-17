@@ -9,13 +9,12 @@ import {
   Table,
   TableRow,
   TableCellHead,
-  TableCell,
   TableBody,
 } from "@dhis2/ui";
 import { DataQuery } from "@dhis2/app-runtime";
 import Loader from "./Loader";
 import Error from "./Error";
-import Case from "./Case";
+import ContactCase from "./ContactCase";
 
 /* Query for getting one index/contact case */
 function personQuery(personId) {
@@ -59,36 +58,12 @@ const ContactModal = (props) => {
                     {data.trackedEntityInstances.relationships.map(
                       (caseSubject) => (
                         <TableRow>
-                          <TableCell>
-                            {
+                          <ContactCase
+                            tei={
                               caseSubject.to.trackedEntityInstance
                                 .trackedEntityInstance
                             }
-                          </TableCell>
-                          <TableCell>
-                            {
-                              caseSubject.to.trackedEntityInstance
-                                .trackedEntityInstance
-                            }
-                          </TableCell>
-                          <TableCell>
-                            {
-                              caseSubject.to.trackedEntityInstance
-                                .trackedEntityInstance
-                            }
-                          </TableCell>
-                          <TableCell>
-                            {
-                              caseSubject.to.trackedEntityInstance
-                                .trackedEntityInstance
-                            }
-                          </TableCell>
-                          <TableCell>
-                            {
-                              caseSubject.to.trackedEntityInstance
-                                .trackedEntityInstance
-                            }
-                          </TableCell>
+                          />
                         </TableRow>
                       )
                     )}

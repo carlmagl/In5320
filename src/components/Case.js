@@ -28,11 +28,6 @@ function checkIfDateHasExpired(dueDate, status) {
   return "";
 }
 
-/* checks if dateRange is an array or one todays date.  */
-function findDateFromRange(dateRange) {
-  return Array.isArray(dateRange) ? dateRange[1] : dateRange[0];
-}
-
 const Case = (props) => {
   const [clikedTracker, setClickedTracker] = useState(false);
   console.log("caseSubject", props.caseSubject.trackedEntityInstance);
@@ -40,6 +35,7 @@ const Case = (props) => {
     <>
       <TableRow key={props.caseSubject.trackedEntityInstance}>
         <TableCell
+          id="Due Date"
           className={checkIfDateHasExpired(
             props.caseSubject.enrollments[0].events[0].dueDate,
             props.caseSubject.enrollments[0].status
@@ -51,12 +47,12 @@ const Case = (props) => {
               ).fromNow()
             : "N/A"}
         </TableCell>
-        <TableCell>
+        <TableCell id="Type">
           {props.caseSubject.programOwners[0].program === "uYjxkTbwRNf"
             ? "INDEX"
             : "CONTACT"}
         </TableCell>
-        <TableCell>
+        <TableCell id="First Name">
           {props.caseSubject.attributes.find(
             (element) => element.attribute === "sB1IHYu2xQT"
           ).value
@@ -65,7 +61,7 @@ const Case = (props) => {
               ).value
             : "N/A"}
         </TableCell>
-        <TableCell>
+        <TableCell id="Last Name">
           {props.caseSubject.attributes.find(
             (element) => element.attribute === "ENRjVGxVL6l"
           ).value
@@ -74,7 +70,7 @@ const Case = (props) => {
               ).value
             : "N/A"}
         </TableCell>
-        <TableCell>
+        <TableCell id="Phone number">
           {props.caseSubject.attributes.find(
             (element) => element.attribute === "fctSQp5nAYl"
           )
@@ -83,7 +79,7 @@ const Case = (props) => {
               ).value
             : "N/A"}
         </TableCell>
-        <TableCell>
+        <TableCell id="Status">
           <Tag
             dataTest="dhis2-uicore-tag"
             positive={checkIfCompleted(props.caseSubject.enrollments[0].status)}
@@ -111,7 +107,6 @@ const Case = (props) => {
         </TableCell>
         <TableCell>
           <TrackerButton
-            setClickedTracker={setClickedTracker}
             name="Tracker Capture"
             data={props.caseSubject.enrollments[0].trackedEntityInstance}
             program={props.caseSubject.programOwners[0].program}
