@@ -15,9 +15,6 @@ function findDateFromRange(dateRange) {
 const CasesList = (props) => {
   const Moment = require("moment");
 
-  //TODO: Is this something we need?
-  const [clikedTracker, setClickedTracker] = useState(false);
-
   return (
     <DataQuery query={props.query}>
       {({ error, loading, data }) => {

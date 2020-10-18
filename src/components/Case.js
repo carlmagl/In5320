@@ -11,18 +11,18 @@ function checkIfCompleted(status) {
 }
 
 function checkIfOverDue(dueDate, status) {
-  return moment().diff(dueDate, "days") > 0 && status !== "COMPLETED";
+  return moment().diff(dueDate, "hours") > 0 && status !== "COMPLETED";
 }
 
 function getStatus(dueDate, status) {
-  if (moment().diff(dueDate, "days") > 0 && status !== "COMPLETED") {
+  if (moment().diff(dueDate, "hours") > 0 && status !== "COMPLETED") {
     return "OVERDUE";
   }
   return status;
 }
 
 function checkIfDateHasExpired(dueDate, status) {
-  if (moment().diff(dueDate, "days") > 0 && status !== "COMPLETED") {
+  if (moment().diff(dueDate, "hours") > 0 && status !== "COMPLETED") {
     return styles.red;
   }
   return "";
