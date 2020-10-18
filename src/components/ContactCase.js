@@ -13,6 +13,7 @@ function personQuery(personId) {
     trackedEntityInstances: {
       resource: `trackedEntityInstances/${personId}`,
       params: {
+        program: "DM9n1bUw8W8",
         fields: "*",
       },
     },
