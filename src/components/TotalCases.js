@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import moment from "moment";
+import styles from ".././App.module.css";
 
 const TotalCases = (props) => {
   return (
     <>
       {Array.isArray(props.dateRange) && (
         <>
-          <h2>
+          <h2 className={styles.workLoadText}>
             From: {moment(props.dateRange[0]).format("DD/MM")} to:{" "}
             {moment(props.dateRange[1]).format("DD/MM")}
           </h2>
         </>
       )}
-      {props.totalCases && <h2>Workload cases: {props.totalCases}</h2>}
+      {props.totalCases && (
+        <h2 className={styles.workLoadText}>
+          Workload cases: {props.totalCases}
+        </h2>
+      )}
     </>
   );
 };

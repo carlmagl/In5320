@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from "./App.module.css";
-import RadioButtons from "./components/RadioButtons";
-import CasesList from "./components/CasesList";
-import CalendarComponent from "./components/CalendarComponent";
-import UserInfo from "./components/UserInfo";
-import Loader from "./components/Loader";
-import Error from "./components/Error";
-import ContactModal from "./components/ContactModal";
-import TotalCases from "./components/TotalCases";
+import RadioButtons from "./Components/RadioButtons";
+import CasesList from "./Components/CasesList";
+import CalendarComponent from "./Components/CalendarComponent";
+import UserInfo from "./Components/UserInfo";
+import Loader from "./Components/Loader";
+import Error from "./Components/Error";
+import ContactModal from "./Components/ContactModal";
+import TotalCases from "./Components/TotalCases";
 
 /* Query for getting the users information */
 const query = {
@@ -99,64 +99,66 @@ const MyApp = () => {
 
   return (
     <div className={styles.container}>
-      <DataQuery query={query}>
-        {({ error, loading, data }) => {
-          if (error) return <Error />;
-          if (loading) return <Loader />;
-          console.log("Me:", data.me.organisationUnits[0]);
-          return (
-            <>
-              <div className={styles.menu}>
-                <UserInfo />
-                <RadioButtons setClicked={setClicked} />
-                <CalendarComponent
-                  dateRange={dateRange}
-                  setDateRange={setDateRange}
-                />
-                <TotalCases dateRange={dateRange} totalCases={totalCases} />
-              </div>
+      <div className={styles.table}>
+        <DataQuery query={query}>
+          {({ error, loading, data }) => {
+            if (error) return <Error />;
+            if (loading) return <Loader />;
+            console.log("Me:", data.me.organisationUnits[0]);
+            return (
               <>
-                {clicked === "Index" && (
-                  <CasesList
-                    query={indexQuery}
+                <div className={styles.menu}>
+                  <UserInfo />
+                  <RadioButtons setClicked={setClicked} />
+                  <CalendarComponent
                     dateRange={dateRange}
-                    setTotalCases={setTotalCases}
-                    setClickedModal={setClickedModal}
+                    setDateRange={setDateRange}
                   />
-                )}
-                {clicked === "Contacts" && (
-                  <CasesList
-                    query={contactsQuery}
-                    dateRange={dateRange}
-                    setTotalCases={setTotalCases}
-                    setClickedModal={setClickedModal}
-                  />
-                )}
-                {clicked === "Both" && (
-                  <CasesList
-                    query={bothQuery}
-                    dateRange={dateRange}
-                    setTotalCases={setTotalCases}
-                    setClickedModal={setClickedModal}
-                  />
-                )}
-                {clicked === "Completed" && (
-                  <CasesList
-                    query={completedQuery}
-                    dateRange={dateRange}
-                    setTotalCases={setTotalCases}
-                    setClickedModal={setClickedModal}
-                  />
-                )}
+                  <TotalCases dateRange={dateRange} totalCases={totalCases} />
+                </div>
+                <>
+                  {clicked === "Index" && (
+                    <CasesList
+                      query={indexQuery}
+                      dateRange={dateRange}
+                      setTotalCases={setTotalCases}
+                      setClickedModal={setClickedModal}
+                    />
+                  )}
+                  {clicked === "Contacts" && (
+                    <CasesList
+                      query={contactsQuery}
+                      dateRange={dateRange}
+                      setTotalCases={setTotalCases}
+                      setClickedModal={setClickedModal}
+                    />
+                  )}
+                  {clicked === "Both" && (
+                    <CasesList
+                      query={bothQuery}
+                      dateRange={dateRange}
+                      setTotalCases={setTotalCases}
+                      setClickedModal={setClickedModal}
+                    />
+                  )}
+                  {clicked === "Completed" && (
+                    <CasesList
+                      query={completedQuery}
+                      dateRange={dateRange}
+                      setTotalCases={setTotalCases}
+                      setClickedModal={setClickedModal}
+                    />
+                  )}
+                </>
               </>
-            </>
-          );
-        }}
-      </DataQuery>
-      {clickedModal && (
-        <ContactModal id={clickedModal} setClickedModal={setClickedModal} />
-      )}
-      {console.log(clickedModal)}
+            );
+          }}
+        </DataQuery>
+        {clickedModal && (
+          <ContactModal id={clickedModal} setClickedModal={setClickedModal} />
+        )}
+        {console.log(clickedModal)}
+      </div>
     </div>
   );
 };

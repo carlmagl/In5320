@@ -15,6 +15,7 @@ import { DataQuery } from "@dhis2/app-runtime";
 import Loader from "./Loader";
 import Error from "./Error";
 import ContactCase from "./ContactCase";
+import styles from "../App.module.css";
 
 /* Query for getting one index/contact case */
 function personQuery(personId) {
