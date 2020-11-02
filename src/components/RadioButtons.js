@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Radio } from "@dhis2/ui-core";
+import styles from "../App.module.css";
 
 const RadioButtons = (params) => {
   const [both, setBoth] = useState(false);
@@ -13,7 +14,7 @@ const RadioButtons = (params) => {
     setCompleted(false);
   }
   return (
-    <>
+    <div className={styles.radioButtons}>
       <Radio
         dataTest="dhis2-uicore-radio"
         label="Index"
@@ -62,7 +63,7 @@ const RadioButtons = (params) => {
         }}
         value="default"
       />
-    </>
+    </div>
   );
 };
 

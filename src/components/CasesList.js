@@ -23,7 +23,7 @@ const CasesList = (props) => {
         return (
           <>
             <nav className={styles.main} data-test-id="menu">
-              <Table>
+              <Table className={styles.TableCell}>
                 <TableRow>
                   <TableCellHead>Due Date</TableCellHead>
                   <TableCellHead>Type</TableCellHead>
