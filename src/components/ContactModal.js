@@ -34,7 +34,7 @@ const ContactModal = (props) => {
     <DataQuery query={personQuery(props.id)}>
       {({ error, loading, data }) => {
         if (error) return <Error />;
-        if (loading) return <Loader />;
+        if (loading) return null;
         console.log("Modal", data.trackedEntityInstances);
         return (
           <>

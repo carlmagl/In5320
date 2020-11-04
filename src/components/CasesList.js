@@ -12,6 +12,27 @@ function findDateFromRange(dateRange) {
   return Array.isArray(dateRange) ? dateRange[1] : dateRange[0];
 }
 
+function getDate(elem, clikedCase) {
+  if (clikedCase === "Index") {
+    return elem.enrollments[0].events.find(
+      (e) => e.programStage === "oqsk2Jv4k3s"
+    ).dueDate;
+  } else if (clikedCase === "Contacts") {
+    return elem.enrollments[0].events.find(
+      (e) => e.programStage === "sAV9jAajr8x"
+    ).dueDate;
+  } else if (clikedCase === "Completed") {
+    return elem.enrollments[0].events.find(
+      (e) => e.programStage === "oqsk2Jv4k3s"
+    ).dueDate;
+  } else if (clikedCase === "Both") {
+    return elem.enrollments[0].events.find(
+      (e) =>
+        e.programStage === "oqsk2Jv4k3s" || e.programStage === "sAV9jAajr8x"
+    ).dueDate;
+  }
+}
+
 const CasesList = (props) => {
   const Moment = require("moment");
 
@@ -20,6 +41,7 @@ const CasesList = (props) => {
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return <Loader />;
+
         return (
           <>
             <nav className={styles.main} data-test-id="menu">
@@ -37,7 +59,7 @@ const CasesList = (props) => {
                     {props.setTotalCases(
                       data.trackedEntityInstances.trackedEntityInstances.filter(
                         (a) =>
-                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                          new Moment(getDate(a, props.clikedCase)).format(
                             "YYYYMMDD"
                           ) -
                             new Moment(
@@ -55,16 +77,16 @@ const CasesList = (props) => {
                     data.trackedEntityInstances.trackedEntityInstances
                       .sort(
                         (a, b) =>
-                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                          new Moment(getDate(a, props.clikedCase)).format(
                             "YYYYMMDD"
                           ) -
-                          new Moment(b.enrollments[0].events[0].dueDate).format(
+                          new Moment(getDate(b, props.clikedCase)).format(
                             "YYYYMMDD"
                           )
                       )
                       .filter(
                         (a) =>
-                          new Moment(a.enrollments[0].events[0].dueDate).format(
+                          new Moment(getDate(a, props.clikedCase)).format(
                             "YYYYMMDD"
                           ) -
                             new Moment(
@@ -77,6 +99,9 @@ const CasesList = (props) => {
                           key={caseSubject.trackedEntityInstance}
                           caseSubject={caseSubject}
                           setClickedModal={props.setClickedModal}
+                          test={props.test}
+                          clikedCase={props.clikedCase}
+                          dateFilter={props.dateFilter}
                         />
                       ))}
                 </TableBody>
