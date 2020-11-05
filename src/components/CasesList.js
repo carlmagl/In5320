@@ -5,36 +5,24 @@ import Loader from "./Loader";
 import Error from "./Error";
 import { Table, TableRow, TableCellHead, TableBody } from "@dhis2/ui";
 import Case from "./Case";
+const Moment = require("moment");
 
 /* checks if dateRange is an array or one todays date.  */
 function findDateFromRange(dateRange) {
   return Array.isArray(dateRange) ? dateRange[1] : dateRange[0];
 }
 
-function getDate(elem, clikedCase) {
-  if (clikedCase === "Index") {
-    return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "SCHEDULE"
-    ).dueDate;
-  } else if (clikedCase === "Contacts") {
-    return elem.enrollments[0].events.find(
-      (e) => e.programStage === "sAV9jAajr8x"
-    ).dueDate;
-  } else if (clikedCase === "Completed") {
-    return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "COMPLETED"
-    ).dueDate;
-  } else if (clikedCase === "Both") {
-    return elem.enrollments[0].events.find(
-      (e) =>
-        e.programStage === "oqsk2Jv4k3s" || e.programStage === "sAV9jAajr8x"
-    ).dueDate;
-  }
+function getDate(elem) {
+  let temps = elem.enrollments[0].events;
+  temps.sort(
+    (a, b) =>
+      new Moment(a.dueDate).format("YYYYMMDD") -
+      new Moment(b.dueDate).format("YYYYMMDD")
+  );
+  return temps.slice(-1)[0].dueDate;
 }
 
 const CasesList = (props) => {
-  const Moment = require("moment");
-
   return (
     <DataQuery query={props.query}>
       {({ error, loading, data }) => {
@@ -58,9 +46,7 @@ const CasesList = (props) => {
                     {props.setTotalCases(
                       data.trackedEntityInstances.trackedEntityInstances.filter(
                         (a) =>
-                          new Moment(getDate(a, props.clikedCase)).format(
-                            "YYYYMMDD"
-                          ) -
+                          new Moment(getDate(a)).format("YYYYMMDD") -
                             new Moment(
                               findDateFromRange(props.dateRange)
                             ).format("YYYYMMDD") <
@@ -76,18 +62,12 @@ const CasesList = (props) => {
                     data.trackedEntityInstances.trackedEntityInstances
                       .sort(
                         (a, b) =>
-                          new Moment(getDate(a, props.clikedCase)).format(
-                            "YYYYMMDD"
-                          ) -
-                          new Moment(getDate(b, props.clikedCase)).format(
-                            "YYYYMMDD"
-                          )
+                          new Moment(getDate(a)).format("YYYYMMDD") -
+                          new Moment(getDate(b)).format("YYYYMMDD")
                       )
                       .filter(
                         (a) =>
-                          new Moment(getDate(a, props.clikedCase)).format(
-                            "YYYYMMDD"
-                          ) -
+                          new Moment(getDate(a)).format("YYYYMMDD") -
                             new Moment(
                               findDateFromRange(props.dateRange)
                             ).format("YYYYMMDD") <

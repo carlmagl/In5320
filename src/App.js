@@ -77,7 +77,6 @@ function bothQuery(orgUnit) {
       resource: "trackedEntityInstances/",
       params: {
         ou: ou,
-        programs: ["DM9n1bUw8W8", "uYjxkTbwRNf"],
         fields: "*",
       },
     },
@@ -95,7 +94,7 @@ function completedQuery(orgUnit) {
       resource: "trackedEntityInstances/",
       params: {
         ou: ou,
-        programs: ["DM9n1bUw8W8", "uYjxkTbwRNf"],
+        program: "uYjxkTbwRNf",
         programStatus: "COMPLETED",
         fields: "*",
       },
@@ -114,12 +113,13 @@ const MyApp = () => {
   const [totalCases, setTotalCases] = useState();
 
   /* State for radio buttons */
-  const [clicked, setClicked] = useState("Index"); //TODO: Add Caching, just presets for this.
+  const [clicked, setClicked] = useState("Index");
 
+  /* //TODO: Add Caching, just presets for this.
   const [index, setIndex] = useState();
   const [contacts, setContacts] = useState();
   const [both, setBoth] = useState();
-  const [completed, setCompleted] = useState();
+  const [completed, setCompleted] = useState(); */
   const [dateFilter, setDateFilter] = useState();
   return (
     <BreakpointProvider>

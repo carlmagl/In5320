@@ -36,45 +36,31 @@ function checkIfDateHasExpired(dueDate, status) {
   return "";
 }
 
-function getDate(elem, clikedCase) {
-  if (clikedCase === "Index") {
-    return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "SCHEDULE"
-    ).dueDate;
-  } else if (clikedCase === "Contacts") {
-    return elem.enrollments[0].events.find(
-      (e) => e.programStage === "sAV9jAajr8x"
-    ).dueDate;
-  } else if (clikedCase === "Completed") {
-    return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "COMPLETED"
-    ).dueDate;
-  } else if (clikedCase === "Both") {
-    return elem.enrollments[0].events.find(
-      (e) =>
-        e.programStage === "oqsk2Jv4k3s" || e.programStage === "sAV9jAajr8x"
-    ).dueDate;
-  }
+function getDate(elem) {
+  const Moment = require("moment");
+  let temps = elem.enrollments[0].events;
+  temps.sort(
+    (a, b) =>
+      new Moment(a.dueDate).format("YYYYMMDD") -
+      new Moment(b.dueDate).format("YYYYMMDD")
+  );
+  return temps.slice(-1)[0].dueDate;
 }
 
 const Case = (props) => {
   const caseSubject = props.caseSubject;
-
-  console.log(
-    "her er det ''' : " + caseSubject.enrollments[0].events[0].dueDate
-  );
   return (
     <>
       <TableRow key={caseSubject.trackedEntityInstance}>
         <TableCell
           id="Due Date"
           className={checkIfDateHasExpired(
-            getDate(caseSubject, props.clikedCase),
+            getDate(caseSubject),
             caseSubject.enrollments[0].status
           )}
         >
-          {getDate(caseSubject, props.clikedCase)
-            ? moment(getDate(caseSubject, props.clikedCase)).fromNow()
+          {getDate(caseSubject)
+            ? moment(getDate(caseSubject)).fromNow()
             : "N/A"}
         </TableCell>
         <TableCell id="Type">
@@ -114,14 +100,11 @@ const Case = (props) => {
             dataTest="dhis2-uicore-tag"
             positive={checkIfCompleted(caseSubject.enrollments[0].status)}
             negative={checkIfOverDue(
-              getDate(caseSubject, props.clikedCase),
+              getDate(caseSubject),
               caseSubject.enrollments[0].status
             )}
           >
-            {getStatus(
-              getDate(caseSubject, props.clikedCase),
-              caseSubject.enrollments[0].status
-            )}
+            {getStatus(getDate(caseSubject), caseSubject.enrollments[0].status)}
           </Tag>
         </TableCell>
         <TableCell>
