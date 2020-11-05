@@ -4,7 +4,7 @@ import styles from ".././App.module.css";
 
 const TotalCases = (props) => {
   return (
-    <>
+    <div className={styles.workLoadDiv}>
       {Array.isArray(props.dateRange) && (
         <>
           <h2 className={styles.workLoadText}>
@@ -18,7 +18,7 @@ const TotalCases = (props) => {
           Workload cases: {props.totalCases}
         </h2>
       )}
-    </>
+    </div>
   );
 };
 

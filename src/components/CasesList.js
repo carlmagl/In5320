@@ -22,8 +22,8 @@ const CasesList = (props) => {
         if (loading) return <Loader />;
         return (
           <>
-            <nav className={styles.main} data-test-id="menu">
-              <Table className={styles.TableCell}>
+            <nav className={styles.table} data-test-id="menu">
+              <Table >
                 <TableRow>
                   <TableCellHead>Due Date</TableCellHead>
                   <TableCellHead>Type</TableCellHead>
