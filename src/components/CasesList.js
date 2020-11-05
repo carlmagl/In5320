@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from ".././App.module.css";
-import moment from "moment";
 import Loader from "./Loader";
 import Error from "./Error";
 import { Table, TableRow, TableCellHead, TableBody } from "@dhis2/ui";
@@ -15,7 +14,7 @@ function findDateFromRange(dateRange) {
 function getDate(elem, clikedCase) {
   if (clikedCase === "Index") {
     return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s"
+      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "SCHEDULE"
     ).dueDate;
   } else if (clikedCase === "Contacts") {
     return elem.enrollments[0].events.find(
@@ -23,7 +22,7 @@ function getDate(elem, clikedCase) {
     ).dueDate;
   } else if (clikedCase === "Completed") {
     return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s"
+      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "COMPLETED"
     ).dueDate;
   } else if (clikedCase === "Both") {
     return elem.enrollments[0].events.find(
@@ -45,7 +44,7 @@ const CasesList = (props) => {
         return (
           <>
             <nav className={styles.table} data-test-id="menu">
-              <Table >
+              <Table>
                 <TableRow>
                   <TableCellHead>Due Date</TableCellHead>
                   <TableCellHead>Type</TableCellHead>
