@@ -30,7 +30,11 @@ function filterList(list, dateRange) {
       );
     }
   }
-  return list.filter((a) => new moment(getDate(a)).isBefore(dateRange[1]));
+  return list.filter((a) =>
+    new moment(getDate(a)).isBefore(
+      Array.isArray(dateRange) ? dateRange[1] : dateRange[0]
+    )
+  );
 }
 
 const CasesList = (props) => {
