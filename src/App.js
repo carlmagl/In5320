@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from "./App.module.css";
+import  { Breakpoint, BreakpointProvider } from 'react-socks';
 import RadioButtons from "./components/RadioButtons";
 import CasesList from "./components/CasesList";
 import CalendarComponent from "./components/CalendarComponent";
@@ -35,6 +36,7 @@ const indexQuery = {
       ou: "JwnjhjVgXP2",
       program: "uYjxkTbwRNf",
       programStatus: "ACTIVE",
+      programStage: "oqsk2Jv4k3s",
       fields: "*",
     },
   },
@@ -48,6 +50,7 @@ const contactsQuery = {
       ou: "JwnjhjVgXP2",
       program: "DM9n1bUw8W8",
       programStatus: "ACTIVE",
+      programStage: "sAV9jAajr8x",
       fields: "*",
     },
   },
@@ -100,16 +103,9 @@ const MyApp = () => {
   const [dateFilter, setDateFilter] = useState();
 
   return (
+    <BreakpointProvider>
     <div className={styles.container}>
-      <div className={styles.table}>
-        <DataQuery query={query}>
-          {({ error, loading, data }) => {
-            if (error) return <Error />;
-            if (loading) return <Loader />;
-            console.log("Me:", data.me.organisationUnits[0]);
-            return (
-              <>
-                <div className={styles.menu}>
+      <div className={styles.menu}>
                   <UserInfo />
                   <RadioButtons setClicked={setClicked} />
                   <CalendarComponent
@@ -119,6 +115,15 @@ const MyApp = () => {
                   />
                   <TotalCases dateRange={dateRange} totalCases={totalCases} />
                 </div>
+      <div className={styles.table}>
+        <DataQuery query={query}>
+          {({ error, loading, data }) => {
+            if (error) return <Error />;
+            if (loading) return <Loader />;
+            console.log("Me:", data.me.organisationUnits[0]);
+            return (
+              <>
+                
                 <>
                   {clicked === "Index" && (
                     <CasesList
@@ -171,6 +176,7 @@ const MyApp = () => {
         {console.log(clickedModal)}
       </div>
     </div>
+    </BreakpointProvider>
   );
 };
 

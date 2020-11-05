@@ -6,6 +6,8 @@
   width: 100%;
   height: 100%;
   font-size: 0.85rem;
+  display: flex;
+  flex-direction: row;
 
   /*grid-template-columns: 20% auto;
   grid-template-areas: "sidebar main"; */
@@ -24,8 +26,7 @@
   height: 100vh;
   width: 25%;
   padding: 20px;
-  position: fixed;
-  overflow-x: hidden;
+
   z-index: 1;
   background: #fbfcfd;
 }
@@ -35,10 +36,11 @@
   display: flex;
   flex-direction: row;
   width: 100%;
+  overflow-y: scroll;
 }
 
-.TableCell {
-  overflow-y: scroll;
+.tableCell {
+  width: 100%;
 }
 
 .main {
@@ -74,37 +76,36 @@
   color: #4caf50;
 }
 
-@media screen and (max-width: 992px) {
+@media only screen and (max-width: 950px) {
   .container {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
     font-size: 1rem;
-    display: grid;
-    grid-template-rows: 20% auto;
-    grid-template-areas: "sidebar main";
+
+    /*grid-template-columns: 20% auto;
+    grid-template-areas: "sidebar main"; */
   }
 
   .menu {
-    border-right: 1px solid rgb(128, 128, 128, 0.5);
-    grid-area: sidebar;
-    position: relative;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
     height: auto;
-    z-index: 1000;
   }
 
-  .main {
-    grid-area: main;
+  .menu > h1 {
+    display: none;
   }
 
-  .red {
-    color: #f44336;
+  .workLoadDiv {
+    display: flex;
+    flex-direction: column;
   }
+}
 
-  .green {
-    color: #4caf50;
+@media only screen and (max-width: 1024px) {
+  .container {
+    font-size: 0.75rem;
   }
 }

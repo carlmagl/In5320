@@ -11,6 +11,7 @@ const OverviewButton = (props) => {
       dataTest="dhis2-uicore-button"
       name="Primary button"
       primary
+      
       type="button"
       value="default"
     >
