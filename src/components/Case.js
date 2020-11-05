@@ -20,17 +20,13 @@ function getStatus(dueDate, status) {
   }
   return status;
 }
-//TO-DO make function how filter away cases with duedate if not date in range
-function checkDateFilter(dateFilter, dueDate, caseSubject) {
+//TO-DO make function how filter away cases with duedate if not date in
+function checkDateFilter(dateFilter, dueDate) {
   if (dateFilter === false && moment().diff(dueDate, "hours") > 0) {
     return styles.red;
   } else {
     return styles.green;
   }
-}
-
-function hide() {
-  return (style = { visibility: "hidden" });
 }
 
 function checkIfDateHasExpired(dueDate, status) {
@@ -43,7 +39,7 @@ function checkIfDateHasExpired(dueDate, status) {
 function getDate(elem, clikedCase) {
   if (clikedCase === "Index") {
     return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s"
+      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "SCHEDULE"
     ).dueDate;
   } else if (clikedCase === "Contacts") {
     return elem.enrollments[0].events.find(
@@ -51,7 +47,7 @@ function getDate(elem, clikedCase) {
     ).dueDate;
   } else if (clikedCase === "Completed") {
     return elem.enrollments[0].events.find(
-      (e) => e.programStage === "oqsk2Jv4k3s"
+      (e) => e.programStage === "oqsk2Jv4k3s" && e.status === "COMPLETED"
     ).dueDate;
   } else if (clikedCase === "Both") {
     return elem.enrollments[0].events.find(
@@ -63,6 +59,10 @@ function getDate(elem, clikedCase) {
 
 const Case = (props) => {
   const caseSubject = props.caseSubject;
+
+  console.log(
+    "her er det ''' : " + caseSubject.enrollments[0].events[0].dueDate
+  );
   return (
     <>
       <TableRow key={caseSubject.trackedEntityInstance}>
@@ -82,13 +82,7 @@ const Case = (props) => {
             ? "INDEX"
             : "CONTACT"}
         </TableCell>
-        <TableCell
-          id="First Name"
-          className={checkDateFilter(
-            props.dateFilter,
-            getDate(caseSubject, props.clikedCase)
-          )}
-        >
+        <TableCell id="First Name">
           {caseSubject.attributes.find(
             (element) => element.attribute === "sB1IHYu2xQT"
           ).value

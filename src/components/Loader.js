@@ -5,7 +5,6 @@ import styles from ".././App.module.css";
 const Loader = () => {
   return (
     <div
-      className={styles.main}
       style={{
         display: "flex",
         justifyContent: "center",
