@@ -77,6 +77,7 @@ function bothQuery(orgUnit) {
       resource: "trackedEntityInstances/",
       params: {
         ou: ou,
+        programs: ["DM9n1bUw8W8", "uYjxkTbwRNf"],
         fields: "*",
       },
     },
@@ -94,7 +95,7 @@ function completedQuery(orgUnit) {
       resource: "trackedEntityInstances/",
       params: {
         ou: ou,
-        program: "uYjxkTbwRNf",
+        programs: ["DM9n1bUw8W8", "uYjxkTbwRNf"],
         programStatus: "COMPLETED",
         fields: "*",
       },
