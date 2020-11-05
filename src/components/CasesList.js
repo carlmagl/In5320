@@ -43,7 +43,10 @@ const CasesList = (props) => {
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return <Loader />;
-
+        if (props.clikedCase === "Both")
+          data.trackedEntityInstances.trackedEntityInstances = data.trackedEntityInstances.trackedEntityInstances.filter(
+            (a) => a.enrollments[0].status !== "COMPLETED"
+          );
         return (
           <>
             <nav className={styles.table} data-test-id="menu">
