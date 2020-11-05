@@ -5,7 +5,7 @@ import Loader from "./Loader";
 import Error from "./Error";
 import { Table, TableRow, TableCellHead, TableBody } from "@dhis2/ui";
 import Case from "./Case";
-const Moment = require("moment");
+import moment from "moment";
 
 /* checks if dateRange is an array or one todays date.  */
 function findDateFromRange(dateRange) {
@@ -16,10 +16,21 @@ function getDate(elem) {
   let temps = elem.enrollments[0].events;
   temps.sort(
     (a, b) =>
-      new Moment(a.dueDate).format("YYYYMMDD") -
-      new Moment(b.dueDate).format("YYYYMMDD")
+      new moment(a.dueDate).format("YYYYMMDD") -
+      new moment(b.dueDate).format("YYYYMMDD")
   );
   return temps.slice(-1)[0].dueDate;
+}
+
+function filterList(list, dateRange) {
+  if (Array.isArray(dateRange)) {
+    if (!new moment(new Date()).isBetween(dateRange[0], dateRange[1])) {
+      return list.filter((a) =>
+        new moment(getDate(a)).isBetween(dateRange[0], dateRange[1])
+      );
+    }
+  }
+  return list.filter((a) => new moment(getDate(a)).isBefore(dateRange[1]));
 }
 
 const CasesList = (props) => {
@@ -46,8 +57,8 @@ const CasesList = (props) => {
                     {props.setTotalCases(
                       data.trackedEntityInstances.trackedEntityInstances.filter(
                         (a) =>
-                          new Moment(getDate(a)).format("YYYYMMDD") -
-                            new Moment(
+                          new moment(getDate(a)).format("YYYYMMDD") -
+                            new moment(
                               findDateFromRange(props.dateRange)
                             ).format("YYYYMMDD") <
                           0
@@ -59,30 +70,23 @@ const CasesList = (props) => {
                 <TableBody id="Tbody">
                   {console.log(data)}
                   {data &&
-                    data.trackedEntityInstances.trackedEntityInstances
-                      .sort(
+                    filterList(
+                      data.trackedEntityInstances.trackedEntityInstances.sort(
                         (a, b) =>
-                          new Moment(getDate(a)).format("YYYYMMDD") -
-                          new Moment(getDate(b)).format("YYYYMMDD")
-                      )
-                      .filter(
-                        (a) =>
-                          new Moment(getDate(a)).format("YYYYMMDD") -
-                            new Moment(
-                              findDateFromRange(props.dateRange)
-                            ).format("YYYYMMDD") <
-                          0
-                      )
-                      .map((caseSubject) => (
-                        <Case
-                          key={caseSubject.trackedEntityInstance}
-                          caseSubject={caseSubject}
-                          setClickedModal={props.setClickedModal}
-                          test={props.test}
-                          clikedCase={props.clikedCase}
-                          dateFilter={props.dateFilter}
-                        />
-                      ))}
+                          new moment(getDate(a)).format("YYYYMMDD") -
+                          new moment(getDate(b)).format("YYYYMMDD")
+                      ),
+                      props.dateRange
+                    ).map((caseSubject) => (
+                      <Case
+                        key={caseSubject.trackedEntityInstance}
+                        caseSubject={caseSubject}
+                        setClickedModal={props.setClickedModal}
+                        test={props.test}
+                        clikedCase={props.clikedCase}
+                        dateFilter={props.dateFilter}
+                      />
+                    ))}
                 </TableBody>
               </Table>
             </nav>

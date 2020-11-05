@@ -18,17 +18,6 @@ const query = {
   },
 };
 
-/* Query for getting one index/contact case */
-
-const personQuery = {
-  trackedEntityInstances: {
-    resource: "trackedEntityInstances/QG0e3EvdHFp",
-    params: {
-      fields: "*",
-    },
-  },
-};
-
 /* Query for getting all index cases */
 function indexQuery(orgUnit) {
   let ou = orgUnit ? orgUnit : "JwnjhjVgXP2";
