@@ -20,12 +20,45 @@ function getStatus(dueDate, status) {
   }
   return status;
 }
+//TO-DO make function how filter away cases with duedate if not date in range
+function checkDateFilter(dateFilter, dueDate, caseSubject) {
+  if (dateFilter === false && moment().diff(dueDate, "hours") > 0) {
+    return styles.red;
+  } else {
+    return styles.green;
+  }
+}
+
+function hide() {
+  return (style = { visibility: "hidden" });
+}
 
 function checkIfDateHasExpired(dueDate, status) {
   if (moment().diff(dueDate, "hours") > 0 && status !== "COMPLETED") {
     return styles.red;
   }
   return "";
+}
+
+function getDate(elem, clikedCase) {
+  if (clikedCase === "Index") {
+    return elem.enrollments[0].events.find(
+      (e) => e.programStage === "oqsk2Jv4k3s"
+    ).dueDate;
+  } else if (clikedCase === "Contacts") {
+    return elem.enrollments[0].events.find(
+      (e) => e.programStage === "sAV9jAajr8x"
+    ).dueDate;
+  } else if (clikedCase === "Completed") {
+    return elem.enrollments[0].events.find(
+      (e) => e.programStage === "oqsk2Jv4k3s"
+    ).dueDate;
+  } else if (clikedCase === "Both") {
+    return elem.enrollments[0].events.find(
+      (e) =>
+        e.programStage === "oqsk2Jv4k3s" || e.programStage === "sAV9jAajr8x"
+    ).dueDate;
+  }
 }
 
 const Case = (props) => {
@@ -36,12 +69,12 @@ const Case = (props) => {
         <TableCell
           id="Due Date"
           className={checkIfDateHasExpired(
-            caseSubject.enrollments[0].events[0].dueDate,
+            getDate(caseSubject, props.clikedCase),
             caseSubject.enrollments[0].status
           )}
         >
-          {caseSubject.enrollments[0].events[0].dueDate
-            ? moment(caseSubject.enrollments[0].events[0].dueDate).fromNow()
+          {getDate(caseSubject, props.clikedCase)
+            ? moment(getDate(caseSubject, props.clikedCase)).fromNow()
             : "N/A"}
         </TableCell>
         <TableCell id="Type">
@@ -49,7 +82,13 @@ const Case = (props) => {
             ? "INDEX"
             : "CONTACT"}
         </TableCell>
-        <TableCell id="First Name">
+        <TableCell
+          id="First Name"
+          className={checkDateFilter(
+            props.dateFilter,
+            getDate(caseSubject, props.clikedCase)
+          )}
+        >
           {caseSubject.attributes.find(
             (element) => element.attribute === "sB1IHYu2xQT"
           ).value
@@ -81,12 +120,12 @@ const Case = (props) => {
             dataTest="dhis2-uicore-tag"
             positive={checkIfCompleted(caseSubject.enrollments[0].status)}
             negative={checkIfOverDue(
-              caseSubject.enrollments[0].events[0].dueDate,
+              getDate(caseSubject, props.clikedCase),
               caseSubject.enrollments[0].status
             )}
           >
             {getStatus(
-              caseSubject.enrollments[0].events[0].dueDate,
+              getDate(caseSubject, props.clikedCase),
               caseSubject.enrollments[0].status
             )}
           </Tag>

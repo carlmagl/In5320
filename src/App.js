@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from "./App.module.css";
-import RadioButtons from "./Components/RadioButtons";
-import CasesList from "./Components/CasesList";
-import CalendarComponent from "./Components/CalendarComponent";
-import UserInfo from "./Components/UserInfo";
-import Loader from "./Components/Loader";
-import Error from "./Components/Error";
-import ContactModal from "./Components/ContactModal";
-import TotalCases from "./Components/TotalCases";
 import  { Breakpoint, BreakpointProvider } from 'react-socks';
-
+import RadioButtons from "./components/RadioButtons";
+import CasesList from "./components/CasesList";
+import CalendarComponent from "./components/CalendarComponent";
+import UserInfo from "./components/UserInfo";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
+import ContactModal from "./components/ContactModal";
+import TotalCases from "./components/TotalCases";
 
 /* Query for getting the users information */
 const query = {
@@ -101,6 +100,8 @@ const MyApp = () => {
   const [both, setBoth] = useState();
   const [completed, setCompleted] = useState();
 
+  const [dateFilter, setDateFilter] = useState();
+
   return (
     <BreakpointProvider>
     <div className={styles.container}>
@@ -110,6 +111,7 @@ const MyApp = () => {
                   <CalendarComponent
                     dateRange={dateRange}
                     setDateRange={setDateRange}
+                    setDateFilter={setDateFilter}
                   />
                   <TotalCases dateRange={dateRange} totalCases={totalCases} />
                 </div>
@@ -129,6 +131,8 @@ const MyApp = () => {
                       dateRange={dateRange}
                       setTotalCases={setTotalCases}
                       setClickedModal={setClickedModal}
+                      clikedCase={clicked}
+                      dateFilter={dateFilter}
                     />
                   )}
                   {clicked === "Contacts" && (
@@ -137,6 +141,8 @@ const MyApp = () => {
                       dateRange={dateRange}
                       setTotalCases={setTotalCases}
                       setClickedModal={setClickedModal}
+                      clikedCase={clicked}
+                      dateFilter={dateFilter}
                     />
                   )}
                   {clicked === "Both" && (
@@ -145,6 +151,8 @@ const MyApp = () => {
                       dateRange={dateRange}
                       setTotalCases={setTotalCases}
                       setClickedModal={setClickedModal}
+                      clikedCase={clicked}
+                      dateFilter={dateFilter}
                     />
                   )}
                   {clicked === "Completed" && (
@@ -153,6 +161,8 @@ const MyApp = () => {
                       dateRange={dateRange}
                       setTotalCases={setTotalCases}
                       setClickedModal={setClickedModal}
+                      clikedCase={clicked}
+                      dateFilter={dateFilter}
                     />
                   )}
                 </>
