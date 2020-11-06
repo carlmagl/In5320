@@ -20,6 +20,8 @@ All index cases has a button which open opp a modal with all contact cases for t
 
 The application is made responsive to fit everything from a large screens down to tablets and smaller screens.
 
+The app is responsive and should conform to the size of most computers. 
+
 ## Members of this group
 
 - carlmagl
