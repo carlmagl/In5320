@@ -19,7 +19,21 @@ function getDate(elem) {
       new moment(a.dueDate).format("YYYYMMDD") -
       new moment(b.dueDate).format("YYYYMMDD")
   );
-  return temps.slice(-1)[0].dueDate;
+
+  let lastElem = temps.slice(-1)[0];
+  let penultimateElem = temps.slice(-2)[0];
+
+  if (
+    lastElem.programStage === "oqsk2Jv4k3s" ||
+    lastElem.programStage === "sAV9jAajr8x"
+  ) {
+    return lastElem.dueDate;
+  } else if (
+    penultimateElem.programStage === "oqsk2Jv4k3s" ||
+    penultimateElem.programStage === "sAV9jAajr8x"
+  ) {
+    return penultimateElem.dueDate;
+  }
 }
 
 function filterList(list, dateRange) {

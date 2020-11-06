@@ -6,12 +6,14 @@ const RadioButtons = (params) => {
   const [both, setBoth] = useState(false);
   const [index, setIndex] = useState(true);
   const [contacts, setContacts] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [completedContacts, setCompletedContacts] = useState(false);
+  const [completedIndex, setCompletedIndex] = useState(false);
   function resetRadioButtons() {
     setBoth(false);
     setIndex(false);
     setContacts(false);
-    setCompleted(false);
+    setCompletedContacts(false);
+    setCompletedIndex(false);
   }
   return (
     <div className={styles.radioButtons}>
@@ -53,13 +55,25 @@ const RadioButtons = (params) => {
       />
       <Radio
         dataTest="dhis2-uicore-radio"
-        label="Completed"
-        name="Completed"
-        checked={completed}
+        label="Completed Contacts"
+        name="Completed Contacts"
+        checked={completedContacts}
         onChange={() => {
-          params.setClicked("Completed");
+          params.setClicked("Completed Contacts");
           resetRadioButtons();
-          setCompleted(true);
+          setCompletedContacts(true);
+        }}
+        value="default"
+      />
+      <Radio
+        dataTest="dhis2-uicore-radio"
+        label="Completed Index"
+        name="Completed Index"
+        checked={completedIndex}
+        onChange={() => {
+          params.setClicked("Completed Index");
+          resetRadioButtons();
+          setCompletedIndex(true);
         }}
         value="default"
       />

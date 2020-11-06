@@ -18,6 +18,17 @@ const query = {
   },
 };
 
+/* Query for getting one index/contact case */
+
+const personQuery = {
+  trackedEntityInstances: {
+    resource: "trackedEntityInstances/QG0e3EvdHFp",
+    params: {
+      fields: "*",
+    },
+  },
+};
+
 /* Query for getting all index cases */
 function indexQuery(orgUnit) {
   let ou = orgUnit ? orgUnit : "JwnjhjVgXP2";
@@ -74,7 +85,7 @@ function bothQuery(orgUnit) {
 
 /* Query for getting all cases with status completed */
 //TODO: Make this get contact cases as well, need testdata to reflect this. We only have index cases with status completed.
-function completedQuery(orgUnit) {
+function completedIndexQuery(orgUnit) {
   let ou = orgUnit ? orgUnit : "JwnjhjVgXP2";
   //TODO: Remove, this is for development
   if (ou === "BPzJYNBjmwO") ou = "JwnjhjVgXP2";
@@ -84,6 +95,23 @@ function completedQuery(orgUnit) {
       params: {
         ou: ou,
         program: "uYjxkTbwRNf",
+        programStatus: "COMPLETED",
+        fields: "*",
+      },
+    },
+  };
+}
+
+function completedContactsQuery(orgUnit) {
+  let ou = orgUnit ? orgUnit : "JwnjhjVgXP2";
+  //TODO: Remove, this is for development
+  if (ou === "BPzJYNBjmwO") ou = "JwnjhjVgXP2";
+  return {
+    trackedEntityInstances: {
+      resource: "trackedEntityInstances/",
+      params: {
+        ou: ou,
+        program: "DM9n1bUw8W8",
         programStatus: "COMPLETED",
         fields: "*",
       },
@@ -109,7 +137,7 @@ const MyApp = () => {
   const [contacts, setContacts] = useState();
   const [both, setBoth] = useState();
   const [completed, setCompleted] = useState(); */
-  const [dateFilter, setDateFilter] = useState();
+
   return (
     <BreakpointProvider>
       <div className={styles.container}>
@@ -119,7 +147,6 @@ const MyApp = () => {
           <CalendarComponent
             dateRange={dateRange}
             setDateRange={setDateRange}
-            setDateFilter={setDateFilter}
           />
           <TotalCases dateRange={dateRange} totalCases={totalCases} />
         </div>
@@ -139,7 +166,6 @@ const MyApp = () => {
                         setTotalCases={setTotalCases}
                         setClickedModal={setClickedModal}
                         clikedCase={clicked}
-                        dateFilter={dateFilter}
                       />
                     )}
                     {clicked === "Contacts" && (
@@ -149,7 +175,6 @@ const MyApp = () => {
                         setTotalCases={setTotalCases}
                         setClickedModal={setClickedModal}
                         clikedCase={clicked}
-                        dateFilter={dateFilter}
                       />
                     )}
                     {clicked === "Both" && (
@@ -159,17 +184,28 @@ const MyApp = () => {
                         setTotalCases={setTotalCases}
                         setClickedModal={setClickedModal}
                         clikedCase={clicked}
-                        dateFilter={dateFilter}
                       />
                     )}
-                    {clicked === "Completed" && (
+                    {clicked === "Completed Contacts" && (
                       <CasesList
-                        query={completedQuery(data.me.organisationUnits[0].id)}
+                        query={completedContactsQuery(
+                          data.me.organisationUnits[0].id
+                        )}
                         dateRange={dateRange}
                         setTotalCases={setTotalCases}
                         setClickedModal={setClickedModal}
                         clikedCase={clicked}
-                        dateFilter={dateFilter}
+                      />
+                    )}
+                    {clicked === "Completed Index" && (
+                      <CasesList
+                        query={completedIndexQuery(
+                          data.me.organisationUnits[0].id
+                        )}
+                        dateRange={dateRange}
+                        setTotalCases={setTotalCases}
+                        setClickedModal={setClickedModal}
+                        clikedCase={clicked}
                       />
                     )}
                   </>
