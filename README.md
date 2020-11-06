@@ -18,6 +18,8 @@ The user can directly go from all cases to the trackerCapture app
 
 All index cases has a button which open opp a modal with all contact cases for that specific index case, for easy work flow.
 
+The application is made responsive to fit everything from a large screens down to tablets and smaller screens.
+
 ## Members of this group
 
 - carlmagl
