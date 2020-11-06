@@ -35,7 +35,7 @@ const ContactModal = (props) => {
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return null;
-        console.log("Modal", data.trackedEntityInstances);
+        console.log("Data from Modal", data.trackedEntityInstances);
         return (
           <>
             <Modal dataTest="dhis2-uicore-modal" position="top">

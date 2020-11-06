@@ -18,17 +18,22 @@ const CalendarComponent = (props) => {
           value={props.dateRange}
           selectRange
           showWeekNumbers
-          onClick={console.log(props.dateRange)}
+          onClick={console.log(
+            "Daterange recevied from calender: ",
+            props.dateRange
+          )}
         />
       </Breakpoint>
-
       <Breakpoint medium down>
         <DateRangePicker
           onChange={onChange}
           value={props.dateRange}
           selectRange
           showWeekNumbers
-          onClick={console.log(props.dateRange)}
+          onClick={console.log(
+            "Daterange recevied from calender: ",
+            props.dateRange
+          )}
         />
       </Breakpoint>
     </>

@@ -5,6 +5,7 @@ import moment from "moment";
 import { TableRow, TableCell, Tag } from "@dhis2/ui";
 import OverviewButton from "./OverviewButtons";
 import TrackerButton from "./TrackerButton";
+import { DataQuery } from "@dhis2/app-runtime";
 
 function checkIfCompleted(status) {
   return status === "COMPLETED";
@@ -61,6 +62,18 @@ function getDate(elem) {
   ) {
     return penultimateElem.dueDate;
   }
+}
+
+function personQuery(personId) {
+  return {
+    trackedEntityInstances: {
+      resource: `trackedEntityInstances/${personId}`,
+      params: {
+        program: "DM9n1bUw8W8",
+        fields: "*",
+      },
+    },
+  };
 }
 
 const Case = (props) => {
