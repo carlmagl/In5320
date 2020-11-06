@@ -21,14 +21,6 @@ function getStatus(dueDate, status) {
   }
   return status;
 }
-//TO-DO make function how filter away cases with duedate if not date in
-function checkDateFilter(dateFilter, dueDate) {
-  if (dateFilter === false && moment().diff(dueDate, "hours") > 0) {
-    return styles.red;
-  } else {
-    return styles.green;
-  }
-}
 
 function checkIfDateHasExpired(dueDate, status) {
   if (moment().diff(dueDate, "hours") > 0 && status !== "COMPLETED") {
@@ -37,7 +29,7 @@ function checkIfDateHasExpired(dueDate, status) {
   return "";
 }
 
-function getDate(elem) {
+/* function getDate(elem) {
   const Moment = require("moment");
   let temps = elem.enrollments[0].events;
   temps.sort(
@@ -46,6 +38,30 @@ function getDate(elem) {
       new Moment(b.dueDate).format("YYYYMMDD")
   );
   return temps.slice(-1)[0].dueDate;
+} */
+
+function getDate(elem) {
+  let temps = elem.enrollments[0].events;
+  temps.sort(
+    (a, b) =>
+      new moment(a.dueDate).format("YYYYMMDD") -
+      new moment(b.dueDate).format("YYYYMMDD")
+  );
+
+  let lastElem = temps.slice(-1)[0];
+  let penultimateElem = temps.slice(-2)[0];
+
+  if (
+    lastElem.programStage === "oqsk2Jv4k3s" ||
+    lastElem.programStage === "sAV9jAajr8x"
+  ) {
+    return lastElem.dueDate;
+  } else if (
+    penultimateElem.programStage === "oqsk2Jv4k3s" ||
+    penultimateElem.programStage === "sAV9jAajr8x"
+  ) {
+    return penultimateElem.dueDate;
+  }
 }
 
 function personQuery(personId) {
