@@ -180,7 +180,6 @@ const MyApp = () => {
           {clickedModal && (
             <ContactModal id={clickedModal} setClickedModal={setClickedModal} />
           )}
-          {console.log(clickedModal)}
         </div>
       </div>
     </BreakpointProvider>

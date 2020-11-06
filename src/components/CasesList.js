@@ -19,14 +19,16 @@ function getDate(elem) {
       new moment(a.dueDate).format("YYYYMMDD") -
       new moment(b.dueDate).format("YYYYMMDD")
   );
-  return temps.slice(-1)[0].dueDate;
+  return new moment(temps.slice(-1)[0].dueDate);
 }
 
 function filterList(list, dateRange) {
   if (Array.isArray(dateRange)) {
     if (!new moment(new Date()).isBetween(dateRange[0], dateRange[1])) {
-      return list.filter((a) =>
-        new moment(getDate(a)).isBetween(dateRange[0], dateRange[1])
+      return list.filter(
+        (a) =>
+          new moment(getDate(a)).isBetween(dateRange[0], dateRange[1]) ||
+          new moment(getDate(a)).isSame(dateRange[0])
       );
     }
   }
@@ -58,24 +60,17 @@ const CasesList = (props) => {
                   <TableCellHead>Last name</TableCellHead>
                   <TableCellHead>Phone</TableCellHead>
                   <TableCellHead>Status</TableCellHead>
-                  <TableCellHead>
-                    Number of Cases:{" "}
-                    {data.trackedEntityInstances.trackedEntityInstances.length}
-                    {props.setTotalCases(
-                      data.trackedEntityInstances.trackedEntityInstances.filter(
-                        (a) =>
-                          new moment(getDate(a)).format("YYYYMMDD") -
-                            new moment(
-                              findDateFromRange(props.dateRange)
-                            ).format("YYYYMMDD") <
-                          0
-                      ).length
-                    )}
-                  </TableCellHead>
+                  <TableCellHead>Overview</TableCellHead>
                   <TableCellHead>Tracker-Capture</TableCellHead>
                 </TableRow>
                 <TableBody id="Tbody">
-                  {console.log(data)}
+                  {console.log("Data comming in Caselist", data)}
+                  {props.setTotalCases(
+                    filterList(
+                      data.trackedEntityInstances.trackedEntityInstances,
+                      props.dateRange
+                    ).length
+                  )}
                   {data &&
                     filterList(
                       data.trackedEntityInstances.trackedEntityInstances.sort(

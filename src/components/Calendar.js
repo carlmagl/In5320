@@ -16,7 +16,7 @@ const CalendarComp = () => {
       value={value}
       selectRange={true}
       showWeekNumbers={true}
-      onClick={console.log(value)}
+      onClick={console.log("Value from calendar", value)}
     />
   );
 };
