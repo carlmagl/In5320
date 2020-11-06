@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@dhis2/ui";
 
 /* http://localhost:9999/dhis-web-tracker-capture/index.html#/dashboard?tei={personID}&program=uYjxkTbwRNf&ou=JwnjhjVgXP2 */

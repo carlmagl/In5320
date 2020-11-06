@@ -4,7 +4,6 @@ import { CircularLoader } from "@dhis2/ui";
 const Loader = () => {
   return (
     <div
-      className="loader"
       style={{
         display: "flex",
         justifyContent: "center",
