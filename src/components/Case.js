@@ -64,12 +64,12 @@ function getDate(elem) {
   }
 }
 
-function personQuery(personId) {
+function personQuery(personId, program) {
   return {
     trackedEntityInstances: {
       resource: `trackedEntityInstances/${personId}`,
       params: {
-        program: "DM9n1bUw8W8",
+        program: program,
         fields: "*",
       },
     },
@@ -118,11 +118,38 @@ const Case = (props) => {
         <TableCell id="Phone number">
           {caseSubject.attributes.find(
             (element) => element.attribute === "fctSQp5nAYl"
-          )
-            ? caseSubject.attributes.find(
-                (element) => element.attribute === "fctSQp5nAYl"
-              ).value
-            : "N/A"}
+          ) ? (
+            caseSubject.attributes.find(
+              (element) => element.attribute === "fctSQp5nAYl"
+            ).value
+          ) : (
+            <DataQuery
+              query={personQuery(
+                caseSubject.trackedEntityInstance,
+                caseSubject.programOwners[0].program
+              )}
+            >
+              {({ error, loading, data }) => {
+                if (error) return <Error />;
+                if (loading) return null;
+                console.log(
+                  "Data from CASE",
+                  data.trackedEntityInstances.attributes
+                );
+                return (
+                  <>
+                    {data.trackedEntityInstances.attributes.find(
+                      (element) => element.attribute === "fctSQp5nAYl"
+                    )
+                      ? data.trackedEntityInstances.attributes.find(
+                          (element) => element.attribute === "fctSQp5nAYl"
+                        ).value
+                      : "N/A"}
+                  </>
+                );
+              }}
+            </DataQuery>
+          )}
         </TableCell>
         <TableCell id="Status">
           <Tag

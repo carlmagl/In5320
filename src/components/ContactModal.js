@@ -56,6 +56,7 @@ const ContactModal = (props) => {
                     <TableCellHead>First name</TableCellHead>
                     <TableCellHead>Last name</TableCellHead>
                     <TableCellHead>Phone</TableCellHead>
+                    <TableCellHead>Tracker Capture</TableCellHead>
                   </TableRow>
                   <TableBody>
                     {console.log(
@@ -81,7 +82,14 @@ const ContactModal = (props) => {
                         )
                       )
                     ) : (
-                      <h2>No contact cases</h2>
+                      <TableRow>
+                        <TableCellHead>No contact cases</TableCellHead>
+                        <TableCellHead></TableCellHead>
+                        <TableCellHead></TableCellHead>
+                        <TableCellHead></TableCellHead>
+                        <TableCellHead></TableCellHead>
+                        <TableCellHead></TableCellHead>
+                      </TableRow>
                     )}
                   </TableBody>
                 </Table>
