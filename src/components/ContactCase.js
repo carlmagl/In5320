@@ -33,7 +33,6 @@ const ContactCase = (props) => {
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return <Loader />;
-        console.log("contactModal", data.trackedEntityInstances);
         const contact = data.trackedEntityInstances;
         return (
           <>

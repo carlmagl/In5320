@@ -1,6 +1,5 @@
 import React from "react";
 import Calendar from "react-calendar";
-import { useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Breakpoint, BreakpointProvider } from "react-socks";
@@ -18,10 +17,6 @@ const CalendarComponent = (props) => {
           value={props.dateRange}
           selectRange
           showWeekNumbers
-          onClick={console.log(
-            "Daterange recevied from calender: ",
-            props.dateRange
-          )}
         />
       </Breakpoint>
       <Breakpoint medium down>
@@ -30,10 +25,6 @@ const CalendarComponent = (props) => {
           value={props.dateRange}
           selectRange
           showWeekNumbers
-          onClick={console.log(
-            "Daterange recevied from calender: ",
-            props.dateRange
-          )}
         />
       </Breakpoint>
     </>

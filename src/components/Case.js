@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from ".././App.module.css";
 import moment from "moment";
 
@@ -28,17 +28,6 @@ function checkIfDateHasExpired(dueDate, status) {
   }
   return "";
 }
-
-/* function getDate(elem) {
-  const Moment = require("moment");
-  let temps = elem.enrollments[0].events;
-  temps.sort(
-    (a, b) =>
-      new Moment(a.dueDate).format("YYYYMMDD") -
-      new Moment(b.dueDate).format("YYYYMMDD")
-  );
-  return temps.slice(-1)[0].dueDate;
-} */
 
 function getDate(elem) {
   let temps = elem.enrollments[0].events;
@@ -132,10 +121,6 @@ const Case = (props) => {
               {({ error, loading, data }) => {
                 if (error) return <Error />;
                 if (loading) return null;
-                console.log(
-                  "Data from CASE",
-                  data.trackedEntityInstances.attributes
-                );
                 return (
                   <>
                     {data.trackedEntityInstances.attributes.find(

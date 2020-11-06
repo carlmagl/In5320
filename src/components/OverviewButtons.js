@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@dhis2/ui";
-import ContactModal from "./ContactModal";
 
 const OverviewButton = (props) => {
   return (
@@ -11,7 +10,6 @@ const OverviewButton = (props) => {
       dataTest="dhis2-uicore-button"
       name="Primary button"
       primary
-      
       type="button"
       value="default"
     >

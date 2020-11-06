@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { DataQuery } from "@dhis2/app-runtime";
 import styles from ".././App.module.css";
 import Loader from "./Loader";
@@ -6,11 +6,6 @@ import Error from "./Error";
 import { Table, TableRow, TableCellHead, TableBody } from "@dhis2/ui";
 import Case from "./Case";
 import moment from "moment";
-
-/* checks if dateRange is an array or one todays date.  */
-function findDateFromRange(dateRange) {
-  return Array.isArray(dateRange) ? dateRange[1] : dateRange[0];
-}
 
 function getDate(elem) {
   let temps = elem.enrollments[0].events;
@@ -78,7 +73,6 @@ const CasesList = (props) => {
                   <TableCellHead>Tracker-Capture</TableCellHead>
                 </TableRow>
                 <TableBody id="Tbody">
-                  {console.log("Data comming in Caselist", data)}
                   {props.setTotalCases(
                     filterList(
                       data.trackedEntityInstances.trackedEntityInstances,

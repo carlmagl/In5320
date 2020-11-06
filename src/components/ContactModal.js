@@ -12,10 +12,8 @@ import {
   TableBody,
 } from "@dhis2/ui";
 import { DataQuery } from "@dhis2/app-runtime";
-import Loader from "./Loader";
 import Error from "./Error";
 import ContactCase from "./ContactCase";
-import styles from "../App.module.css";
 
 /* Query for getting one index/contact case */
 function personQuery(personId) {
@@ -35,7 +33,6 @@ const ContactModal = (props) => {
       {({ error, loading, data }) => {
         if (error) return <Error />;
         if (loading) return null;
-        console.log("Data from Modal", data.trackedEntityInstances);
         return (
           <>
             <Modal dataTest="dhis2-uicore-modal" position="top">
@@ -59,10 +56,6 @@ const ContactModal = (props) => {
                     <TableCellHead>Tracker Capture</TableCellHead>
                   </TableRow>
                   <TableBody>
-                    {console.log(
-                      "Relationships",
-                      data.trackedEntityInstances.relationships
-                    )}
                     {data.trackedEntityInstances.relationships.length ? (
                       data.trackedEntityInstances.relationships.map(
                         (caseSubject) => (

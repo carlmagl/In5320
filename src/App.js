@@ -18,17 +18,6 @@ const query = {
   },
 };
 
-/* Query for getting one index/contact case */
-
-const personQuery = {
-  trackedEntityInstances: {
-    resource: "trackedEntityInstances/QG0e3EvdHFp",
-    params: {
-      fields: "*",
-    },
-  },
-};
-
 /* Query for getting all index cases */
 function indexQuery(orgUnit) {
   let ou = orgUnit ? orgUnit : "JwnjhjVgXP2";
@@ -132,12 +121,6 @@ const MyApp = () => {
   /* State for radio buttons */
   const [clicked, setClicked] = useState("Index");
 
-  /* //TODO: Add Caching, just presets for this.
-  const [index, setIndex] = useState();
-  const [contacts, setContacts] = useState();
-  const [both, setBoth] = useState();
-  const [completed, setCompleted] = useState(); */
-
   return (
     <BreakpointProvider>
       <div className={styles.container}>
@@ -155,7 +138,6 @@ const MyApp = () => {
             {({ error, loading, data }) => {
               if (error) return <Error />;
               if (loading) return <Loader />;
-              console.log("Me:", data.me);
               return (
                 <>
                   <>
